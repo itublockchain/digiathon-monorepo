@@ -13,6 +13,8 @@ const Login: NextPage = () => {
   const router = useRouter();
   const [loginChoose, setLoginChoose] = useState('password');
   const isConnected = useIsConnected();
+  const [id, setID] = useState('');
+  const [password, setPassword] = useState('');
   const { connect } = useConnection({
     onConnect: () => {
       authenticate();
