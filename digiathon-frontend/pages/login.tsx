@@ -24,6 +24,7 @@ const Login: NextPage = () => {
     setAuthorizerUser({
       fullname: 'Farhad Asgarov',
       tcId: '12345678910',
+      type: 'signer',
     });
     router.push(PATHS.noter);
   };
