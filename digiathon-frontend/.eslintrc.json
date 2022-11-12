@@ -30,6 +30,7 @@
     "semi": ["error", "always"],
     "sort-keys-fix/sort-keys-fix": "warn",
     "unused-imports/no-unused-imports": "error",
+    "@typescript-eslint/no-var-requires": "off",
     "@next/next/no-img-element": "off",
     "unused-imports/no-unused-vars": [
       "warn",
