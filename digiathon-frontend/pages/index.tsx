@@ -6,6 +6,7 @@ import { Input, Typography } from 'ui';
 import { FaSearch, FaFileSignature } from 'react-icons/fa';
 import { TbRotateDot } from 'react-icons/tb';
 import Mobile from 'assets/mobile.png';
+import Link from 'next/link';
 
 const Home: NextPage = () => {
   return (
@@ -51,15 +52,17 @@ const Home: NextPage = () => {
             Sorgulama, Başvuru ve Ödeme hizmetleri.
           </span>
         </div>
-        <div className="flex flex-col items-center">
-          <div className="w-24 h-24 flex items-center justify-center rounded-full bg-mainBlue hover:bg-mainBlueHover text-white border-4 border-white cursor-pointer">
-            <FaFileSignature className="text-3xl" />
-          </div>
-          <span className="font-semibold text-lg mt-2">Noterler</span>
-          <span className="font-light text-xs mt-1">
-            Blockchain tabanlı elektronik noter hizmetleri
-          </span>
-        </div>
+        <Link href="/noter" className="flex flex-col items-center">
+          <a className="flex flex-col items-center">
+            <div className="w-24 h-24 flex items-center justify-center rounded-full bg-mainBlue hover:bg-mainBlueHover text-white border-4 border-white cursor-pointer">
+              <FaFileSignature className="text-3xl" />
+            </div>
+            <span className="font-semibold text-lg mt-2">Noterler</span>
+            <span className="font-light text-xs mt-1">
+              Blok zincir tabanlı elektronik noter ve imzalama hizmetleri
+            </span>
+          </a>
+        </Link>
       </div>
       <div className="relative w-full flex justify-center">
         <img src={Mobile.src} className="mt-12 w-full" alt="mobile platform" />
