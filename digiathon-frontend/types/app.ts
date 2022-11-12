@@ -9,11 +9,21 @@ export type SignRequestInput = {
   title: string;
 };
 
+export type SubmitDocumentInput = {
+  data: string;
+};
+
 export type SignRequest = {
   _id: string;
   sender: string;
   title: string;
   created: number;
+  document?: {
+    _id: string;
+    hash: string;
+    data: string;
+    submitted: string;
+  } | null;
 };
 
 export enum Page {

@@ -1,5 +1,5 @@
 import Axios from 'axios';
-import { SignRequest } from 'types/app';
+import { SignRequest, SubmitDocumentInput } from 'types/app';
 
 const axios = Axios.create({
   baseURL: 'http://localhost:8000',
@@ -12,7 +12,23 @@ export const useAxios = () => {
   const apiGetSignRequests = (params: { sender: string }) =>
     axios.get('/requests', { params: params });
 
+  const apiGetSignApprovals = (data: { sender: string }) =>
+    axios.post('/requests/approvals', data);
+
   const apiGetSignRequestById = (id: string) => axios.get(`/requests/${id}`);
 
-  return { apiCreateSignRequest, apiGetSignRequestById, apiGetSignRequests };
+  const apiSubmitDocument = (id: string, data: SubmitDocumentInput) =>
+    axios.post(`/requests/${id}/submit`, data);
+
+  const apiSubmitDocumentForSign = (id: string) =>
+    axios.post(`/requests/${id}/submitForSign`);
+
+  return {
+    apiCreateSignRequest,
+    apiGetSignApprovals,
+    apiGetSignRequestById,
+    apiGetSignRequests,
+    apiSubmitDocument,
+    apiSubmitDocumentForSign,
+  };
 };

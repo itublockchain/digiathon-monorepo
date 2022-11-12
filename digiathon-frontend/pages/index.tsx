@@ -7,6 +7,7 @@ import { FaSearch, FaFileSignature } from 'react-icons/fa';
 import { TbRotateDot } from 'react-icons/tb';
 import Mobile from 'assets/mobile.png';
 import Link from 'next/link';
+import { PATHS } from 'const/paths';
 
 const Home: NextPage = () => {
   return (
@@ -52,7 +53,7 @@ const Home: NextPage = () => {
             Sorgulama, Başvuru ve Ödeme hizmetleri.
           </span>
         </div>
-        <Link href="/noter" className="flex flex-col items-center">
+        <Link href={PATHS.noter} className="flex flex-col items-center">
           <a className="flex flex-col items-center">
             <div className="w-24 h-24 flex items-center justify-center rounded-full bg-mainBlue hover:bg-mainBlueHover text-white border-4 border-white cursor-pointer">
               <FaFileSignature className="text-3xl" />

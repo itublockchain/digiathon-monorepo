@@ -1,6 +1,7 @@
 import { Container, Layout } from '@ethylene/components';
 import { useModal } from '@ethylene/ui-hooks';
 import { Navbar } from 'components';
+import { Approvals } from 'components/Approvals';
 import { Requests } from 'components/Requests';
 import { Sidebar } from 'components/Sidebar';
 import { PATHS } from 'const/paths';
@@ -55,8 +56,10 @@ const Noter = () => {
                   </Button>
                 )}
               </div>
-              {page === Page.requests && (
+              {page === Page.requests ? (
                 <Requests modalController={createModal} />
+              ) : (
+                <Approvals />
               )}
             </div>
           </div>

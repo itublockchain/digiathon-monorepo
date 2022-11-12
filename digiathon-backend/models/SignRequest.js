@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const SignRequestSchema = new Schema({
   submitted: {
     type: Boolean,
-    default: "false",
+    default: false,
   },
   sender: {
     type: String,
