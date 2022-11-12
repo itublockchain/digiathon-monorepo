@@ -5,6 +5,28 @@ const SignRequest = require("../models/SignRequest");
 const router = express.Router();
 const { body, validationResult } = require("express-validator");
 
+/**
+ * @dev Get single request by id
+ */
+router.get("/:id", authMiddleware, async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const doc = await SignRequest.findOne({
+      _id: id,
+    });
+    res.json(doc);
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({
+      msg: "Server error",
+    });
+  }
+});
+
+/**
+ * @dev Get all requests by sender
+ */
 router.get("/", authMiddleware, async (req, res) => {
   const { sender } = req.query;
 

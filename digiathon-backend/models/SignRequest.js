@@ -2,6 +2,10 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const SignRequestSchema = new Schema({
+  submitted: {
+    type: Boolean,
+    default: "false",
+  },
   sender: {
     type: String,
     required: true,
