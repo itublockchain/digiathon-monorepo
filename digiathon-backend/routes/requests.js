@@ -5,8 +5,20 @@ const SignRequest = require("../models/SignRequest");
 const router = express.Router();
 const { body, validationResult } = require("express-validator");
 
-router.get("/", authMiddleware, (req, res) => {
-  res.json({ msg: "" });
+router.get("/", authMiddleware, async (req, res) => {
+  const { sender } = req.query;
+
+  try {
+    const doc = await SignRequest.find({
+      sender,
+    }).sort({ _id: -1 });
+    res.json(doc);
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({
+      msg: "Server error",
+    });
+  }
 });
 
 /**
@@ -15,12 +27,12 @@ router.get("/", authMiddleware, (req, res) => {
 router.post(
   "/",
   authMiddleware,
-  body("document")
+  body("title")
     .isString()
     .isLength({
       min: 1,
     })
-    .withMessage("Document must be filled"),
+    .withMessage("Title must be filled"),
   body("sender")
     .isString()
     .isLength({
@@ -33,15 +45,15 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
     try {
-      const { document, sender, comment } = req.body;
+      const { title, sender } = req.body;
 
       const newDocument = new SignRequest({
-        document: document,
-        comment: comment,
+        title: title,
         sender: sender,
       });
 
       await newDocument.save();
+
       return res.json(newDocument);
     } catch (err) {
       console.log(err);
