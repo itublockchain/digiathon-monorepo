@@ -11,7 +11,7 @@ interface ButtonProps extends ComponentPropsWithoutRef<'button'> {
   disabled?: boolean;
   leftIcon?: MixedElement;
   rightIcon?: MixedElement;
-  forwardedRef?: RefObject<HTMLButtonElement>;
+  forwardedRef?: RefObject<HTMLButtonElement> & any;
   color: ButtonColor;
   className?: string;
   size?: ButtonSize;

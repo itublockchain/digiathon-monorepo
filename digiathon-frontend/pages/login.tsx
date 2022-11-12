@@ -4,10 +4,29 @@ import trLogin from '../assets/tr-login.png';
 import { AiOutlineWallet, AiOutlineLock } from 'react-icons/ai';
 import styles from 'styles/login.module.scss';
 import { useState } from 'react';
+import { useConnection, useIsConnected } from '@ethylene/hooks';
+import { useRouter } from 'next/router';
+import { PATHS } from 'const/paths';
+import { useSetAuthorizedUser } from 'store/AuthHooks';
 
 const Login: NextPage = () => {
   const router = useRouter();
   const [loginChoose, setLoginChoose] = useState('password');
+  const isConnected = useIsConnected();
+  const { connect } = useConnection({
+    onConnect: () => {
+      authenticate();
+    },
+  });
+  const setAuthorizerUser = useSetAuthorizedUser();
+
+  const authenticate = () => {
+    setAuthorizerUser({
+      fullname: 'Farhad Asgarov',
+      tcId: '12345678910',
+    });
+    router.push(PATHS.noter);
+  };
 
   return (
     <div
