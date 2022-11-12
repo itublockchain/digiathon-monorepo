@@ -79,12 +79,11 @@
   font-family: 'Open Sans',sans-serif;
   margin: 1.5em;
   margin-top: 1em;
-  margin-bottom: 0;
+  margin-bottom: 2em;
   background: #fff;
   border-radius: .33em .33em 0 0;
   padding: 1em;
   border: 2px solid rgba(58,137,180,.15);
-  border-bottom: none;
 }
 
 .methodSelector::before {
@@ -138,7 +137,7 @@
 }
 
 .tab a span {
-  margin-top: -30px;
+  margin-top: -34px;
   font-family: 'Open Sans',sans-serif;
   display: block;
   padding: .66em .66em .66em 2.2em;
@@ -187,13 +186,13 @@
   font-family: 'Open Sans',sans-serif;
   font-size: 90%;
   display: block;
-  margin-top: 0em;
+  margin-bottom: -3em;
 }
 
 .inputForm div {
   padding: .66em 0 1em 0;
   padding: 1em .5em;
-  border-bottom: 1px dashed #e7ebed;
+  //border-bottom: 1px dashed #e7ebed;
   -webkit-transition: background-color 1s;
   -o-transition: background-color 1s;
   transition: background-color 1s;
@@ -304,7 +303,7 @@
   margin-right: 1em;
   font-size: 112%;
   border: 1px rgba(52,122,161,.3) solid;
-  background: #347aa1 url(/themes/izmir/images/button-right.103.svg) no-repeat right center;
+  background: #347aa1  no-repeat right center;
   background-size: 1.4em 1.1em;
   padding-right: 2em;
   -webkit-box-ordinal-group: 3;
