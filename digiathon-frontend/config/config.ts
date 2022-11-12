@@ -20,7 +20,7 @@ export const CONFIG: BaseConfig<ExtraConfig> = {
     API_KEY: process.env.NEXT_PUBLIC_MORALIS_API_KEY,
     ENABLED: true,
   },
-  REMEMBER_ME: true,
+  REMEMBER_ME: false,
   WALLETCONNECT: {
     rpc: {
       1: ETHEREUM_MAINNET.rpcUrls[0],

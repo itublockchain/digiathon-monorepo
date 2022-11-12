@@ -4,14 +4,17 @@ import { EthyleneProvider } from '@ethylene/redux';
 import { useStyling } from 'hooks/useStyling';
 import { useInitializeWeb3 } from '@ethylene/core/useInitializeWeb3';
 import { useInitialTheme } from '@ethylene/ui-hooks';
+import { StateProvider } from 'store';
 
 function EthyleneApp({ Component, pageProps }: AppProps) {
   return (
     <EthyleneProvider>
-      <>
-        <InitHooks />
-        <Component {...pageProps} />
-      </>
+      <StateProvider>
+        <>
+          <InitHooks />
+          <Component {...pageProps} />
+        </>
+      </StateProvider>
     </EthyleneProvider>
   );
 }

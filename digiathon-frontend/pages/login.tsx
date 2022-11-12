@@ -4,9 +4,24 @@ import trLogin from '../assets/tr-login.png';
 import { AiOutlineWallet, AiOutlineLock } from 'react-icons/ai';
 import styles from 'styles/login.module.scss';
 import { useState } from 'react';
+import { useConnection, useIsConnected } from '@ethylene/hooks';
+import { useRouter } from 'next/router';
+import { PATHS } from 'const/paths';
+import { useDispatch } from 'react-redux';
 
 const Login: NextPage = () => {
+  const router = useRouter();
   const [loginChoose, setLoginChoose] = useState('password');
+  const isConnected = useIsConnected();
+  const { connect } = useConnection({
+    onConnect: () => {
+      authenticate();
+    },
+  });
+
+  const authenticate = () => {
+    router.push(PATHS.noter);
+  };
 
   return (
     <div
@@ -87,7 +102,16 @@ const Login: NextPage = () => {
             )}
             {loginChoose == 'wallet' && (
               <div className="h-60 flex justify-center items-center">
-                <button className={clsnm(' w-auto h-5', styles.submitButton)}>
+                <button
+                  onClick={() => {
+                    if (!isConnected) {
+                      connect('injected');
+                    } else {
+                      authenticate();
+                    }
+                  }}
+                  className={clsnm(' w-auto h-5', styles.submitButton)}
+                >
                   Mobil Cüzdanımı Bağla
                 </button>
               </div>

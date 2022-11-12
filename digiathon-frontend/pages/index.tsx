@@ -57,7 +57,7 @@ const Home: NextPage = () => {
             <div className="w-24 h-24 flex items-center justify-center rounded-full bg-mainBlue hover:bg-mainBlueHover text-white border-4 border-white cursor-pointer">
               <FaFileSignature className="text-3xl" />
             </div>
-            <span className="font-semibold text-lg mt-2">Noterler</span>
+            <span className="font-semibold text-lg mt-2">e-Imzalar</span>
             <span className="font-light text-xs mt-1">
               Blok zincir tabanlı elektronik noter ve imzalama hizmetleri
             </span>

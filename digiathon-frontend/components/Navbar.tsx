@@ -4,12 +4,18 @@ import { Button } from 'ui';
 import { IoEnterOutline } from 'react-icons/io5';
 import Link from 'next/link';
 import { clsnm } from '@ethylene/utils';
+import { useRouter } from 'next/router';
+import { PATHS } from 'const/paths';
+import { useIsConnected } from '@ethylene/hooks';
 
 export const Navbar = ({
   state = 'default',
 }: {
   state?: 'active' | 'default';
 }) => {
+  const router = useRouter();
+  const isConnected = useIsConnected();
+
   return (
     <div
       className={clsnm(
@@ -19,19 +25,30 @@ export const Navbar = ({
     >
       <Container>
         <div className="flex justify-between items-center w-full ">
-          <Link href="/">
+          <Link href={PATHS.intro}>
             <a>
               <img className="w-48" alt="logo" src={CONFIG.APP_LOGO} />
             </a>
           </Link>
-          <Button
-            size="small"
-            className="pl-4 pr-4"
-            color="light"
-            rightIcon={<IoEnterOutline />}
-          >
-            Giriş yap
-          </Button>
+          {isConnected ? (
+            <Button
+              onClick={() => router.push(PATHS.login)}
+              size="small"
+              className="pl-4 pr-4"
+              color="light"
+              rightIcon={<IoEnterOutline />}
+            >
+              Giriş yap
+            </Button>
+          ) : (
+            <Button
+              onClick={() => router.push(PATHS.login)}
+              size="small"
+              className="pl-4 pr-4"
+              color="light"
+              rightIcon={<IoEnterOutline />}
+            ></Button>
+          )}
         </div>
       </Container>
     </div>
