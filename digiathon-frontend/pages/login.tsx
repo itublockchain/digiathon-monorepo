@@ -12,8 +12,6 @@ import { useSetAuthorizedUser } from 'store/AuthHooks';
 const Login: NextPage = () => {
   const router = useRouter();
   const [loginChoose, setLoginChoose] = useState('password');
-  const [id, setID] = useState('');
-  const [password, setPassword] = useState('');
   const isConnected = useIsConnected();
   const [id, setID] = useState('');
   const [password, setPassword] = useState('');
