@@ -4,14 +4,10 @@ import trLogin from '../assets/tr-login.png';
 import { AiOutlineWallet, AiOutlineLock } from 'react-icons/ai';
 import styles from 'styles/login.module.scss';
 import { useState } from 'react';
-import { SubmitFormAction } from 'pspdfkit';
 
 const Login: NextPage = () => {
+  const router = useRouter();
   const [loginChoose, setLoginChoose] = useState('password');
-  const [id, setID] = useState('');
-  const [password, setPassword] = useState('');
-
-  const submitForm = () => {};
 
   return (
     <div
@@ -108,7 +104,16 @@ const Login: NextPage = () => {
             )}
             {loginChoose == 'wallet' && (
               <div className="h-60 flex justify-center items-center">
-                <button className={clsnm(' w-auto h-5', styles.submitButton)}>
+                <button
+                  onClick={() => {
+                    if (!isConnected) {
+                      connect('injected');
+                    } else {
+                      authenticate();
+                    }
+                  }}
+                  className={clsnm(' w-auto h-5', styles.submitButton)}
+                >
                   Mobil Cüzdanımı Bağla
                 </button>
               </div>
