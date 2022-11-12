@@ -7,6 +7,7 @@ module.exports = {
     './components/**/*.{js,ts,jsx,tsx}',
     './ui/**/*.{js,ts,jsx,tsx}',
   ],
+  darkMode: 'class',
   theme: {
     extend: {
       colors: {
@@ -30,6 +31,9 @@ module.exports = {
         buttonPrimaryBg: colors.indigo[500],
         buttonPrimaryBgActive: colors.indigo[700],
         buttonPrimaryBgHover: colors.indigo[600],
+
+        mainBlue: '#3b77ac',
+        mainBlueHover: '#2b6ca6',
       },
     },
   },
