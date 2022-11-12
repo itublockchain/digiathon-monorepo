@@ -18,6 +18,7 @@ export type SignRequest = {
   sender: string;
   title: string;
   created: number;
+  submitted: boolean;
   document?: {
     _id: string;
     hash: string;

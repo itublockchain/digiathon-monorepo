@@ -220,12 +220,12 @@ const Request = () => {
 
                   <Button
                     onClick={() => submitForSignReq.exec()}
-                    disabled={signature == null || request.document != null}
+                    disabled={signature == null || request.submitted}
                     loading={submitForSignReq.loading}
                     color="primary"
                     className="ml-auto mt-4"
                   >
-                    {request.document != null
+                    {request.submitted
                       ? 'İmza için gönderildi'
                       : 'İmza için gönder'}
                   </Button>

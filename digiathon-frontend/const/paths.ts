@@ -1,4 +1,5 @@
 export const PATHS = {
+  approve: '/approve',
   home: '/dashboard',
   intro: '/',
   login: '/login',

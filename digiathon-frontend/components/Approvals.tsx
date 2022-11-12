@@ -57,7 +57,7 @@ export const Approvals = ({}: {}) => {
                   {new Date(item.created * 1000).toTimeString()}
                 </span>
               </div>
-              <Link href={`${PATHS.request}/${item._id}`}>
+              <Link href={`${PATHS.approve}/${item._id}`}>
                 <div className="ml-auto">
                   <Button color="primary">Görüntüle</Button>
                 </div>
