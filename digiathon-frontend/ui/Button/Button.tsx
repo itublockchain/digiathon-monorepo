@@ -3,7 +3,7 @@ import { clsnm } from '@ethylene/utils';
 import { ComponentPropsWithoutRef, RefObject, useMemo } from 'react';
 import { Spinner } from 'ui/Spinner/Spinner';
 
-type ButtonColor = 'primary' | 'light' | 'dark' | 'danger';
+type ButtonColor = 'primary' | 'light' | 'dark' | 'danger' | 'success';
 type ButtonSize = 'small' | 'medium' | 'large' | 'xlarge';
 
 interface ButtonProps extends ComponentPropsWithoutRef<'button'> {
@@ -113,6 +113,13 @@ export const useButtonClassName = (
         'bg-buttonDangerBg',
         'hover:bg-buttonDangerBgHover',
         'active:bg-buttonDangerBgActive',
+        'text-white',
+      ];
+    } else if (color === 'success') {
+      arr = [
+        'bg-green-500',
+        'hover:bg-green-600',
+        'active:bg-green-700',
         'text-white',
       ];
     }

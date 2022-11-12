@@ -5,8 +5,8 @@ import { Requests } from 'components/Requests';
 import { Sidebar } from 'components/Sidebar';
 import { PATHS } from 'const/paths';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-import { useAuthorizedUser } from 'store/AuthHooks';
+import { useEffect } from 'react';
+import { useAuthorizedUser, usePage } from 'store/AuthHooks';
 import { Button } from 'ui';
 
 enum Page {
@@ -15,7 +15,7 @@ enum Page {
 }
 
 const Noter = () => {
-  const [page, setPage] = useState<Page>(Page.requests);
+  const page = usePage();
   const authorizedUser = useAuthorizedUser();
   const router = useRouter();
 
@@ -43,7 +43,7 @@ const Noter = () => {
       <div className="main">
         <Container className="pt-10">
           <div className="grid grid-cols-12 gap-8">
-            <Sidebar page={page} setPage={setPage} />
+            <Sidebar />
             <div className="col-span-9">
               <div className="flex justify-between items-center">
                 <span className="text-lg font-semibold">
