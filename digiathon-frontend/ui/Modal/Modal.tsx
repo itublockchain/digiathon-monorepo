@@ -50,7 +50,7 @@ const Modal = ({
         ref={outsideRef}
         className={clsnm(
           styles.body,
-          'bg-white dark:bg-neutral-800',
+          'bg-neutral-100 dark:bg-neutral-800',
           className,
         )}
         style={{
@@ -63,7 +63,7 @@ const Modal = ({
             onClick={close}
             className={clsnm(
               styles.close,
-              'flex items-center align-center bg-neutral-100 hover:bg-gray-20 dark:bg-neutral-900 hover:dark:bg-black text-black dark:text-white rounded-full',
+              'flex items-center align-center bg-neutral-100 hover:bg-gray-200 dark:bg-neutral-900 hover:dark:bg-black text-black dark:text-white rounded-full',
             )}
           >
             <IoMdClose />

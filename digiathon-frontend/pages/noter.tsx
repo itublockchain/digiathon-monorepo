@@ -1,4 +1,5 @@
 import { Container, Layout } from '@ethylene/components';
+import { useModal } from '@ethylene/ui-hooks';
 import { clsnm } from '@ethylene/utils';
 import { Navbar } from 'components';
 import { Requests } from 'components/Requests';
@@ -36,6 +37,8 @@ const Noter = () => {
     }
   }, [authorizedUser, router]);
 
+  const createModal = useModal();
+
   return (
     <Layout>
       <Navbar state="active" />
@@ -48,7 +51,7 @@ const Noter = () => {
               <div
                 onClick={() => setPage(Page.requests)}
                 className={clsnm(
-                  'py-2 px-1 flex w-full cursor-pointer hover:bg-neutral-200 rounded-md',
+                  'py-2 px-4 flex w-full cursor-pointer hover:bg-neutral-200 rounded-md',
                   isPageActive(Page.requests) && 'bg-neutral-200',
                 )}
               >
@@ -58,7 +61,7 @@ const Noter = () => {
                 <div
                   onClick={() => setPage(Page.approvals)}
                   className={clsnm(
-                    'py-2 px-1 flex w-full cursor-pointer hover:bg-neutral-200 rounded-md mt-2',
+                    'py-2 px-4 flex w-full cursor-pointer hover:bg-neutral-200 rounded-md mt-2',
                     isPageActive(Page.approvals) && 'bg-neutral-200',
                   )}
                 >
@@ -71,9 +74,13 @@ const Noter = () => {
                 <span className="text-lg font-semibold">
                   {formatPageName(page)}
                 </span>
-                <Button color="light">Talep oluştur</Button>
+                <Button onClick={createModal.open} color="light">
+                  Talep oluştur
+                </Button>
               </div>
-              {page === Page.requests && <Requests />}
+              {page === Page.requests && (
+                <Requests modalController={createModal} />
+              )}
             </div>
           </div>
         </Container>

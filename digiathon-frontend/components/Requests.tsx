@@ -1,15 +1,30 @@
-import { useModal } from '@ethylene/ui-hooks';
+import { ModalController } from '@ethylene/ui-hooks/useModal';
 import { useState } from 'react';
-import { Modal } from 'ui';
+import { Button, Input, Modal } from 'ui';
 
-export const Requests = () => {
+export const Requests = ({
+  modalController,
+}: {
+  modalController: ModalController;
+}) => {
   const [request, setRequests] = useState([]);
-  const createModal = useModal();
+
+  const createSignRequest = () => {};
 
   return (
     <div>
-      <Modal modalController={createModal}>
-        <div>Hello</div>
+      <Modal
+        closeOnClickOutside={false}
+        width="540px"
+        modalController={modalController}
+      >
+        <div className="flex flex-col w-full">
+          <p className="text-xl font-semibold mb-4">Talep oluştur</p>
+          <Input placeholder="Talep ismi" />
+          <Button color="primary" className="mt-4">
+            Oluştur
+          </Button>
+        </div>
       </Modal>
       {request.length === 0 ? (
         <div className="mt-2 flex justify-center">
