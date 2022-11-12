@@ -10,6 +10,9 @@ module.exports = {
   darkMode: 'class',
   theme: {
     extend: {
+      minHeight: {
+        maximum: 'calc(100vh - 140px)',
+      },
       colors: {
         header: 'rgba(18,35,51,0.3)',
         headerActive: '#3b77ac',

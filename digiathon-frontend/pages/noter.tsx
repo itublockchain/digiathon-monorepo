@@ -1,6 +1,7 @@
 import { Container, Layout } from '@ethylene/components';
 import { clsnm } from '@ethylene/utils';
 import { Navbar } from 'components';
+import { Requests } from 'components/Requests';
 import { PATHS } from 'const/paths';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -41,7 +42,7 @@ const Noter = () => {
       <div className="main">
         <Container className="pt-10">
           <div className="grid grid-cols-12 gap-8">
-            <div className="col-span-3 bg-neutral-100 rounded-md p-2">
+            <div className="col-span-3 bg-neutral-100 rounded-md p-2 min-h-maximum">
               <span className="mb-2 block">LOGO</span>
 
               <div
@@ -53,16 +54,17 @@ const Noter = () => {
               >
                 Taleplerim
               </div>
-
-              <div
-                onClick={() => setPage(Page.approvals)}
-                className={clsnm(
-                  'py-2 px-1 flex w-full cursor-pointer hover:bg-neutral-200 rounded-md mt-2',
-                  isPageActive(Page.approvals) && 'bg-neutral-200',
-                )}
-              >
-                Onaylarım
-              </div>
+              {authorizedUser?.type === 'signer' && (
+                <div
+                  onClick={() => setPage(Page.approvals)}
+                  className={clsnm(
+                    'py-2 px-1 flex w-full cursor-pointer hover:bg-neutral-200 rounded-md mt-2',
+                    isPageActive(Page.approvals) && 'bg-neutral-200',
+                  )}
+                >
+                  Onaylarım
+                </div>
+              )}
             </div>
             <div className="col-span-9">
               <div className="flex justify-between items-center">
@@ -71,6 +73,7 @@ const Noter = () => {
                 </span>
                 <Button color="light">Talep oluştur</Button>
               </div>
+              {page === Page.requests && <Requests />}
             </div>
           </div>
         </Container>

@@ -7,7 +7,7 @@ import { clsnm } from '@ethylene/utils';
 import { useRouter } from 'next/router';
 import { PATHS } from 'const/paths';
 import { useConnection, useIsConnected } from '@ethylene/hooks';
-import { useAuthorizedUser } from 'store/AuthHooks';
+import { useAuthorizedUser, useSetAuthorizedUser } from 'store/AuthHooks';
 import { useDropdown } from 'hooks';
 
 export const Navbar = ({
@@ -19,6 +19,7 @@ export const Navbar = ({
   const { disconnect } = useConnection();
   const isConnected = useIsConnected();
   const authorizedUser = useAuthorizedUser();
+  const setAuthorizedUser = useSetAuthorizedUser();
 
   const { floating, reference, popperStyles, toggle, isOpen, closeRef } =
     useDropdown({

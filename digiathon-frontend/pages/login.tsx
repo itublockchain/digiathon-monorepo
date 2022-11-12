@@ -3,11 +3,13 @@ import { NextPage } from 'next';
 import trLogin from '../assets/tr-login.png';
 import { AiOutlineWallet, AiOutlineLock } from 'react-icons/ai';
 import styles from 'styles/login.module.scss';
-import { useState } from 'react';
-import { useConnection, useIsConnected } from '@ethylene/hooks';
+import { useEffect, useState } from 'react';
+import { useAddress, useConnection, useIsConnected } from '@ethylene/hooks';
 import { useRouter } from 'next/router';
 import { PATHS } from 'const/paths';
 import { useSetAuthorizedUser } from 'store/AuthHooks';
+import { users } from 'const/users';
+import { useNotify } from 'hooks/useNotify';
 
 const Login: NextPage = () => {
   const router = useRouter();
@@ -15,23 +17,33 @@ const Login: NextPage = () => {
   const isConnected = useIsConnected();
   const [id, setID] = useState('');
   const [password, setPassword] = useState('');
+  const address = useAddress();
   const { connect } = useConnection({
-    onConnect: () => {
-      authenticate();
-    },
+    onConnect: () => {},
   });
   const setAuthorizerUser = useSetAuthorizedUser();
+  const notify = useNotify();
 
-  const authenticate = () => {
-    setAuthorizerUser({
-      fullname: 'Farhad Asgarov',
-      tcId: '12345678910',
-      type: 'signer',
-    });
-    router.push(PATHS.noter);
-  };
+  // const authenticate = () => {
+  //   const _user = users[id];
+  //   if (_user != null) {
+  //     setAuthorizerUser(_user);
+  //     router.push(PATHS.noter);
+  //   } else {
+  //     notify.error('Kullanıcı eşleştirilemedi');
+  //   }
+  // };
 
-  const submitForm = () => {};
+  useEffect(() => {
+    if (address == null) return;
+    const _user = users[address];
+    if (_user != null) {
+      setAuthorizerUser(_user);
+      router.push(PATHS.noter);
+    } else {
+      notify.error('Kullanıcı eşleştirilemedi');
+    }
+  }, [address, notify, router, setAuthorizerUser]);
 
   return (
     <div
