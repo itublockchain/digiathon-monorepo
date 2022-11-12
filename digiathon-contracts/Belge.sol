@@ -8,17 +8,21 @@ interface NoterKayit {
 }
 
 contract Belge {
+    event BireyselBelgeNoterTarafindanImzanlandi(bytes belgeHashi);
+    event AntlasmaNoterTarafindanImzalandi(bytes belgeHashi);
+    event AntlasmaTumTaraflarTarafindanImzalandi(bytes belgeHashi);
+
     struct BireyselBelge {
         uint256 zamanDamgasi;
         address imzalayanNoter;
-        bool imzaliMi;
+        bool imzalandiMi;
     }
 
     struct Antlasma {
         uint256 zamanDamgasi;
         address[] imzalayanlar;
         address[] taraflar;
-        bool imzaliMi;
+        bool imzalandiMi;
     }
 
     mapping(bytes => BireyselBelge) public bireyselBelgeler;
@@ -60,19 +64,24 @@ contract Belge {
         require(hangiBelgeTuru[_belgeHashi] != 0, "Gecersiz belge");
         if (hangiBelgeTuru[_belgeHashi] == 2) {
             require(
-                antlasmalar[_belgeHashi].imzaliMi,
+                antlasmalar[_belgeHashi].imzalandiMi == false,
                 "Bu belge zaten noter tarafindan imzalanmistir"
             );
+            require(
+                antlasmalar[_belgeHashi].taraflar.length ==
+                    antlasmalar[_belgeHashi].imzalayanlar.length,
+                "Bu belgeyi henuz tum taraflar imzalamadi"
+            );
             antlasmalar[_belgeHashi].imzalayanlar.push(msg.sender);
-            antlasmalar[_belgeHashi].imzaliMi = true;
+            antlasmalar[_belgeHashi].imzalandiMi = true;
             imzalananBelgeler[msg.sender][_belgeHashi] = true;
         } else if (hangiBelgeTuru[_belgeHashi] == 1) {
             require(
-                bireyselBelgeler[_belgeHashi].imzaliMi,
+                bireyselBelgeler[_belgeHashi].imzalandiMi == false,
                 "Bu belge zaten noter tarafindan imzalanmistir"
             );
             bireyselBelgeler[_belgeHashi].imzalayanNoter = msg.sender;
-            bireyselBelgeler[_belgeHashi].imzaliMi = true;
+            bireyselBelgeler[_belgeHashi].imzalandiMi = true;
             imzalananBelgeler[msg.sender][_belgeHashi] = true;
         }
     }
