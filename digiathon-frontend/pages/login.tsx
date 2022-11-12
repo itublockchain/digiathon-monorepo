@@ -7,7 +7,7 @@ import { useState } from 'react';
 import { useConnection, useIsConnected } from '@ethylene/hooks';
 import { useRouter } from 'next/router';
 import { PATHS } from 'const/paths';
-import { useDispatch } from 'react-redux';
+import { useSetAuthorizedUser } from 'store/AuthHooks';
 
 const Login: NextPage = () => {
   const router = useRouter();
@@ -18,8 +18,13 @@ const Login: NextPage = () => {
       authenticate();
     },
   });
+  const setAuthorizerUser = useSetAuthorizedUser();
 
   const authenticate = () => {
+    setAuthorizerUser({
+      fullname: 'Farhad Asgarov',
+      tcId: '12345678910',
+    });
     router.push(PATHS.noter);
   };
 
