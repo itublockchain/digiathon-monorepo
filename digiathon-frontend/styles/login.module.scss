@@ -6,3 +6,201 @@
     ),
     #fff;
 }
+
+.outer {
+    width: 80%;
+    border-radius: 0.5em;
+    margin: 1em;
+    max-width: 960px;
+    min-height: 10em;
+    background: #FFF;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-box-shadow: 0 .4em .5em rgba(33,78,103,.2);
+    box-shadow: 0 .4em .5em rgba(33,78,103,.2);
+}
+
+.outer header{
+  border: none;
+  margin: 0;
+  padding: 0;
+  font-weight: 400;
+  list-style: none;
+  position: relative;
+  -webkit-box-shadow: 0 .56em 1em -1em rgba(58,137,180,.75);
+  box-shadow: 0 .56em 1em -1em rgba(58,137,180,.75);
+  background: #FFF;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 1em 1.5em;
+  border-radius: .5em .5em 0 0;
+  height: 3.5em;
+}
+
+.outer header h1 {
+  background-image: url('https://cdn.e-devlet.gov.tr/themes/izmir/images/edkkds.svg');
+  border: none;
+  margin: 0;
+  padding: 0;
+  font-weight: 400;
+  list-style: none;
+  text-indent: 200%;
+  white-space: nowrap;
+  overflow: hidden;
+  background-repeat: no-repeat;
+  height: 1.66em;
+  background-position: left center;
+  background-size: contain;
+  font-size: 2em;
+  display: block;
+}
+
+.outer main{
+ 
+}
+
+.outer main section {
+  margin: 1.5em;
+  margin-bottom: 1em;
+}
+
+.outer main section img {
+  max-width: 165px;
+  width: 25%;
+  height: 40px;
+  vertical-align: middle;
+  display: block;
+}
+
+.methodSelector {
+  margin: 1.5em;
+  margin-top: 1em;
+  margin-bottom: 0;
+  background: #fff;
+  border-radius: .33em .33em 0 0;
+  padding: 1em;
+  border: 2px solid rgba(58,137,180,.15);
+  border-bottom: none;
+}
+
+.methodSelector::before {
+  display: block;
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(52,122,161,0);
+  z-index: 8000;
+  visibility: hidden;
+  -webkit-transition: visibility 0s 1s,background 1s;
+  -o-transition: visibility 0s 1s,background 1s;
+  transition: visibility 0s 1s,background 1s;
+}
+
+.tabChoser {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: -14px -14px;
+  display: block;
+}
+
+.tabList {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-flow: row nowrap;
+  flex-flow: row nowrap;
+}
+.tab {
+  display: block;
+  padding: .66em .66em .66em 2.2em;
+  background-size: 2em auto;
+  background-repeat: no-repeat;
+
+}
+
+.tab span {
+  display: block;
+  padding: .66em .66em .66em 2.2em;
+  background-size: 2em auto;
+  background-repeat: no-repeat;
+  background-image: url(../assets/auth-methods-login.svg);
+}
+.pageContent {
+  border: none;
+  margin: 0;
+  padding: 0;
+  font-weight: 400;
+  list-style: none;
+  background: #FFF;
+  padding: 1em;
+  margin: 0 1.5em;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  border-radius: 0 0 .33em .33em;
+  border: 2px solid rgba(58,137,180,.2);
+  border-top: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  text-shadow: rgba(0,0,0,.01) 0 0 1px;
+}
+
+.richText {
+  font-size: 90%;
+  color: #4a4e50;
+  border-bottom: 1px dotted #e7ebed;
+  padding-bottom: 1em;
+  font-weight: 200;
+}
+
+
+.fieldSet {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+  width: 100%;
+  display: table-cell;
+}
+
+.inputForm {
+  font-size: 90%;
+  display: block;
+  margin-top: 0em;
+}
+
+.inputForm div {
+  padding: .66em 0 1em 0;
+  padding: 1em .5em;
+  border-bottom: 1px dashed #e7ebed;
+  -webkit-transition: background-color 1s;
+  -o-transition: background-color 1s;
+  transition: background-color 1s;
+  position: relative;
+}
+
+.inputForm div label {
+  padding-top: .5em;
+  float: left;
+  width: 50%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  display: block;
+  font-weight: 400;
+  padding-bottom: .25em;
+}
+
+.inputForm div label::before {
+  content: '*';
+  color: #347aa1;
+  font-weight: 400;
+  position: relative;
+  top: .1em;
+  margin-right: .25em;
+}
+
