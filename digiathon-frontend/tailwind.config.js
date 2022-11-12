@@ -7,10 +7,12 @@ module.exports = {
     './components/**/*.{js,ts,jsx,tsx}',
     './ui/**/*.{js,ts,jsx,tsx}',
   ],
+  darkMode: 'class',
   theme: {
     extend: {
       colors: {
         header: 'rgba(18,35,51,0.3)',
+        headerActive: '#3b77ac',
         headerScroll: 'rgba(74,100,125,0.9)',
 
         buttonDangerBg: colors.pink[500],
@@ -30,6 +32,9 @@ module.exports = {
         buttonPrimaryBg: colors.indigo[500],
         buttonPrimaryBgActive: colors.indigo[700],
         buttonPrimaryBgHover: colors.indigo[600],
+
+        mainBlue: '#3b77ac',
+        mainBlueHover: '#2b6ca6',
       },
     },
   },

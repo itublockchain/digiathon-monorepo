@@ -14,8 +14,8 @@ export const CONFIG: BaseConfig<ExtraConfig> = {
   APP_LOGO_SM_DARK: Logo.src,
   CONNECTION: 'injected', // See EthyleneConnectionType for more options
   FAVICON_PATH: '/favicon.ico', // Root located at /public
-  FONT_FAMILY: '"Prompt", sans-serif',
-  INITIAL_THEME: 'dark',
+  FONT_FAMILY: '"Open Sans", sans-serif',
+  INITIAL_THEME: 'light',
   MORALIS: {
     API_KEY: process.env.NEXT_PUBLIC_MORALIS_API_KEY,
     ENABLED: true,
