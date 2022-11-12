@@ -21,4 +21,14 @@ contract NoterKayit {
     function noterSil(address eskiNoter) external sadeceYetkili {
         noterAdresleri[eskiNoter] = false;
     }
+
+    function noterDahil(address[] calldata adresListesi) external view returns (bool) {
+        uint256 listeUzunlugu = adresListesi.length;
+        for (uint256 i = 0; i < listeUzunlugu; i++) {
+            if (noterAdresleri[adresListesi[i]]) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
