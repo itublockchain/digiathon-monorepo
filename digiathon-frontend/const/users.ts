@@ -11,4 +11,9 @@ export const users: { [key: string]: User } = {
     tcId: '2222',
     type: 'signer',
   },
+  '0x9B8990Fd2cE1F6633499953B3B27a0E15Ff3eb9b': {
+    fullname: 'Muhittin Köybaşı',
+    tcId: "1112",
+    type: "user",
+  },
 };

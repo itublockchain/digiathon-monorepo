@@ -43,6 +43,7 @@ contract Belge {
         belge.zamanDamgasi = block.timestamp;
         bireyselBelgeler[_belgeHashi] = belge;
         hangiBelgeTuru[_belgeHashi] = 1;
+        imzalanabilirBelgeler[msg.sender][_belgeHashi] = true;
     }
 
     function antlasmaOlustur(
@@ -87,10 +88,7 @@ contract Belge {
     }
 
     function bireyOlarakImzala(bytes calldata _belgeHashi) external {
-        require(
-            hangiBelgeTuru[_belgeHashi] == 2,
-            "Bu belge yalnizca noter tarafindan imzalanabilir ya da gecersiz belge"
-        );
+        require(hangiBelgeTuru[_belgeHashi] != 0, "Gecersiz belge");
         require(
             imzalanabilirBelgeler[msg.sender][_belgeHashi],
             "Bu belgeyi imzalayabilmek icin yetkiniz yoktur"
@@ -99,8 +97,9 @@ contract Belge {
             imzalananBelgeler[msg.sender][_belgeHashi] == false,
             "Bu belgeyi coktan imzaladiniz"
         );
-
-        antlasmalar[_belgeHashi].imzalayanlar.push(msg.sender);
+        if (hangiBelgeTuru[_belgeHashi] == 2) {
+            antlasmalar[_belgeHashi].imzalayanlar.push(msg.sender);
+        }
         imzalananBelgeler[msg.sender][_belgeHashi] = true;
     }
 
