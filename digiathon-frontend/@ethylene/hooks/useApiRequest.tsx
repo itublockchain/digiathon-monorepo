@@ -3,22 +3,22 @@ import { useState } from 'react';
 
 const SUCCESS_CODES = [200, 201, 204];
 
-export const useRequest = <T extends Array<unknown>, R>(
-  cb: (...params: T) => AxiosResponse<R>,
+export const useRequest = (
+  cb: (...params: any) => any,
   {
     onSuccess,
     onFail,
     onStart,
   }: {
-    onSuccess?: (res: AxiosResponse<R>, ...args: T) => void;
-    onFail?: (res: AxiosResponse<R> | AxiosError, ...args: T) => void;
-    onStart?: (...args: T) => void;
+    onSuccess?: (res: any, ...args: any) => void;
+    onFail?: (res: any | AxiosError, ...args: any) => void;
+    onStart?: (...args: any) => void;
   } = {},
 ) => {
   const [loading, setLoading] = useState(false);
   const [isFailed, setIsFailed] = useState(false);
 
-  const exec = async (...args: T) => {
+  const exec = async (...args: any) => {
     try {
       onStart?.(...args);
       setLoading(true);
@@ -26,11 +26,11 @@ export const useRequest = <T extends Array<unknown>, R>(
         setLoading(false);
         return;
       }
-      const res: AxiosResponse<R> = await cb(...args);
+      const res: any = await cb(...args);
       if (SUCCESS_CODES.includes(res.status)) {
-        onSuccess?.(res as AxiosResponse<R>, ...args);
+        onSuccess?.(res as AxiosResponse, ...args);
       } else {
-        onFail?.(res as AxiosResponse<R>, ...args);
+        onFail?.(res as AxiosResponse, ...args);
       }
       setLoading(false);
     } catch (err) {
@@ -43,5 +43,5 @@ export const useRequest = <T extends Array<unknown>, R>(
     }
   };
 
-  return { exec, isFailed, loading };
+  return { loading, exec, isFailed };
 };

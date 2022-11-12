@@ -25,7 +25,7 @@
     "linebreak-style": ["error", "unix"],
     "no-unused-vars": "off",
     "quotes": ["error", "single"],
-    "react-hooks/exhaustive-deps": "error",
+    "react-hooks/exhaustive-deps": "warn",
     "react/react-in-jsx-scope": "off",
     "semi": ["error", "always"],
     "sort-keys-fix/sort-keys-fix": "warn",

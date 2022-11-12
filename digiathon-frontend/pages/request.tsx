@@ -9,24 +9,12 @@ import { useEffect, useState } from 'react';
 import { useAuthorizedUser } from 'store/AuthHooks';
 import { Button } from 'ui';
 
-enum Page {
-  requests = 'Talepler',
-  approvals = 'Approvials',
-}
-
-const Noter = () => {
-  const [page, setPage] = useState<Page>(Page.requests);
+const Request = () => {
   const authorizedUser = useAuthorizedUser();
   const router = useRouter();
 
   const formatPageName = (page: Page) => {
-    switch (page) {
-      case Page.approvals:
-        return 'Bana atanan imza istekleri';
-      case Page.requests:
-        return 'Taleplerim';
-    }
-    return;
+    return 'İstek - ';
   };
 
   useEffect(() => {
