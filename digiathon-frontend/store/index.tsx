@@ -7,7 +7,7 @@ import {
   createDispatchHook,
   createSelectorHook,
 } from 'react-redux';
-import authSlice from 'store/auth';
+import authSlice from 'store/Auth';
 
 export const store = configureStore({
   middleware: (getDefaultMiddleware) => {
@@ -24,15 +24,11 @@ export const store = configureStore({
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 
-export const ethyleneStoreContext = createContext<any>(null);
-export const useEthyleneDispatch = createDispatchHook(
-  ethyleneStoreContext as any,
-);
-export const useEthyleneSelector = createSelectorHook(
-  ethyleneStoreContext as any,
-);
-export const useTypedEthyleneSelector: TypedUseSelectorHook<RootState> =
-  useEthyleneSelector;
+export const context = createContext<any>(null);
+export const useGlobalDispatch = createDispatchHook(context as any);
+export const useGlobalSelector = createSelectorHook(context as any);
+export const useTypedSelector: TypedUseSelectorHook<RootState> =
+  useGlobalSelector;
 
 type EthyleneProviderProps = {
   children: MixedElement;
@@ -40,7 +36,7 @@ type EthyleneProviderProps = {
 
 export const StateProvider = ({ children }: EthyleneProviderProps) => {
   return (
-    <Provider context={ethyleneStoreContext} store={store}>
+    <Provider context={context} store={store}>
       {children}
     </Provider>
   );
