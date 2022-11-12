@@ -64,7 +64,7 @@ const Home: NextPage = () => {
           </a>
         </Link>
       </div>
-      <div className="relative w-full flex justify-center">
+      <div className="relative w-full flex justify-center min-h-96">
         <img src={Mobile.src} className="mt-12 w-full" alt="mobile platform" />
         <div className="absolute translate-x-72 top-48 flex flex-col w-96">
           <span className="font-light text-2xl">
@@ -72,7 +72,7 @@ const Home: NextPage = () => {
           </span>
           <span className="font-light mt-2 text-sm">
             e-Devlet Kapısı Mobil ile e-hizmetlere Android, iPhone, iPad ve
-            Huawei cihazlarınızdan kolayca erişebilir, "Anlık Bilgilendirme" ile
+            Huawei cihazlarınızdan kolayca erişebilir, Anlık Bilgilendirme ile
             gelişmelerden vakit kaybetmeden haberdar olabilirsiniz.
           </span>
         </div>

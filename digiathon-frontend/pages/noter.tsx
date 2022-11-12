@@ -1,7 +1,10 @@
 import { Container, Layout } from '@ethylene/components';
 import { clsnm } from '@ethylene/utils';
 import { Navbar } from 'components';
-import { useState } from 'react';
+import { PATHS } from 'const/paths';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import { useAuthorizedUser } from 'store/AuthHooks';
 import { Button } from 'ui';
 
 enum Page {
@@ -11,6 +14,8 @@ enum Page {
 
 const Noter = () => {
   const [page, setPage] = useState<Page>(Page.requests);
+  const authorizedUser = useAuthorizedUser();
+  const router = useRouter();
 
   const isPageActive = (_page: Page) => page === _page;
 
@@ -23,6 +28,12 @@ const Noter = () => {
     }
     return;
   };
+
+  useEffect(() => {
+    if (authorizedUser == null) {
+      router.replace(PATHS.login);
+    }
+  }, [authorizedUser, router]);
 
   return (
     <Layout>

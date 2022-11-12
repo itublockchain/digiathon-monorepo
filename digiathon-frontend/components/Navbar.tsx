@@ -8,7 +8,6 @@ import { useRouter } from 'next/router';
 import { PATHS } from 'const/paths';
 import { useConnection, useIsConnected } from '@ethylene/hooks';
 import { useAuthorizedUser } from 'store/AuthHooks';
-import { useEffect } from 'react';
 import { useDropdown } from 'hooks';
 
 export const Navbar = ({
@@ -20,12 +19,6 @@ export const Navbar = ({
   const { disconnect } = useConnection();
   const isConnected = useIsConnected();
   const authorizedUser = useAuthorizedUser();
-
-  useEffect(() => {
-    if (authorizedUser == null) {
-      router.push(PATHS.intro);
-    }
-  }, [authorizedUser, router]);
 
   const { floating, reference, popperStyles, toggle, isOpen, closeRef } =
     useDropdown({
