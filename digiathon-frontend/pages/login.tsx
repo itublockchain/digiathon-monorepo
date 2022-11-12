@@ -4,9 +4,14 @@ import trLogin from '../assets/tr-login.png';
 import { AiOutlineWallet, AiOutlineLock } from 'react-icons/ai';
 import styles from 'styles/login.module.scss';
 import { useState } from 'react';
+import { SubmitFormAction } from 'pspdfkit';
 
 const Login: NextPage = () => {
   const [loginChoose, setLoginChoose] = useState('password');
+  const [id, setID] = useState('');
+  const [password, setPassword] = useState('');
+
+  const submitForm = () => {};
 
   return (
     <div
@@ -61,23 +66,39 @@ const Login: NextPage = () => {
                       <label className={clsnm(styles.rowLabel)}>
                         T.C. Kimlik No
                       </label>
-                      <input type="text"></input>
+                      <input
+                        value={id}
+                        onChange={(e) => setID(e.target.value)}
+                        type="text"
+                      ></input>
                     </div>
                     <div className={clsnm(styles.formRow)}>
                       <label className={clsnm(styles.rowLabel)}>
                         E-Devlet Şifresi
                       </label>
-                      <input type="password"></input>
+                      <input
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        type="password"
+                      ></input>
                       <div className={clsnm(styles.fieldInfo, styles.richText)}>
                         * e-Devlet şifrenizi unutmanız durumunda doğruladığınız
                         cep telefonunuzdan yenileme işlemi yapabilirsiniz.
                       </div>
                     </div>
-                    <div className={clsnm(styles.formSubmit)}>
+                    <div
+                      className={clsnm(
+                        'flex justify-center items-center',
+                        styles.formSubmit,
+                      )}
+                    >
                       <button className={clsnm(styles.backButton)}>
                         {'İptal'}
                       </button>
-                      <button className={clsnm(styles.submitButton)}>
+                      <button
+                        className={clsnm(styles.submitButton)}
+                        onClick={() => submitForm()}
+                      >
                         Giriş Yap
                       </button>
                     </div>
