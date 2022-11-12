@@ -6,15 +6,12 @@ const SignRequestSchema = new Schema({
     type: String,
     required: true,
   },
-  comment: {
-    type: String,
-  },
   created: {
     type: Number,
     required: true,
     default: Math.floor(new Date().getTime() / 1000),
   },
-  document: {
+  title: {
     type: String,
     required: true,
   },

@@ -15,12 +15,12 @@ router.get("/", authMiddleware, (req, res) => {
 router.post(
   "/",
   authMiddleware,
-  body("document")
+  body("title")
     .isString()
     .isLength({
       min: 1,
     })
-    .withMessage("Document must be filled"),
+    .withMessage("Title must be filled"),
   body("sender")
     .isString()
     .isLength({
@@ -33,11 +33,10 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
     try {
-      const { document, sender, comment } = req.body;
+      const { title, sender } = req.body;
 
       const newDocument = new SignRequest({
-        document: document,
-        comment: comment,
+        titel: title,
         sender: sender,
       });
 
