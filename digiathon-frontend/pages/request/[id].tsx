@@ -22,6 +22,8 @@ const Request = () => {
   const address = useAddress();
   const inputRef = useRef<HTMLInputElement>(null);
 
+  const sign = () => {};
+
   const getSignRequestReq = useRequest(
     (id: string) => apiGetSignRequestById(id),
     {
