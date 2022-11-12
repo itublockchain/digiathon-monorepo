@@ -8,7 +8,7 @@
 }
 
 .outer {
-    width: 80%;
+    font-family: 'Open Sans',sans-serif;
     border-radius: 0.5em;
     margin: 1em;
     max-width: 960px;
@@ -21,6 +21,7 @@
 }
 
 .outer header{
+  font-family: 'Open Sans',sans-serif;
   border: none;
   margin: 0;
   padding: 0;
@@ -38,6 +39,7 @@
 }
 
 .outer header h1 {
+  font-family: 'Open Sans',sans-serif;
   background-image: url('https://cdn.e-devlet.gov.tr/themes/izmir/images/edkkds.svg');
   border: none;
   margin: 0;
@@ -56,7 +58,7 @@
 }
 
 .outer main{
- 
+  
 }
 
 .outer main section {
@@ -65,6 +67,7 @@
 }
 
 .outer main section img {
+  margin-top: -50px;
   max-width: 165px;
   width: 25%;
   height: 40px;
@@ -73,6 +76,7 @@
 }
 
 .methodSelector {
+  font-family: 'Open Sans',sans-serif;
   margin: 1.5em;
   margin-top: 1em;
   margin-bottom: 0;
@@ -107,30 +111,42 @@
 }
 
 .tabList {
-  display: -webkit-box;
-  display: -ms-flexbox;
+  
   display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -ms-flex-flow: row nowrap;
   flex-flow: row nowrap;
 }
 .tab {
   display: block;
+  flex-grow: 1;
   padding: .66em .66em .66em 2.2em;
   background-size: 2em auto;
   background-repeat: no-repeat;
+  border-bottom: 1px solid #e1e1e1;
+  border-right: 1px solid #d3d3d3;
 
 }
+.tab a {
+  cursor: pointer;
+  display: block;
+  padding: 7px 0 0 5px;
+  background-color: #fff;
+  text-decoration: none;
+  color: #666b6e;
+  font-size: 14px;
+  margin: 0;
+  min-height: 30px;
+}
 
-.tab span {
+.tab a span {
+  margin-top: -30px;
+  font-family: 'Open Sans',sans-serif;
   display: block;
   padding: .66em .66em .66em 2.2em;
   background-size: 2em auto;
-  background-repeat: no-repeat;
-  background-image: url(../assets/auth-methods-login.svg);
 }
 .pageContent {
+  text-shadow: rgb(0 0 0 / 1%) 0 0 1px;
+  font-family: 'Open Sans',sans-serif;
   border: none;
   margin: 0;
   padding: 0;
@@ -141,9 +157,6 @@
   margin: 0 1.5em;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  border-radius: 0 0 .33em .33em;
-  border: 2px solid rgba(58,137,180,.2);
-  border-top: none;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
@@ -151,6 +164,7 @@
 }
 
 .richText {
+  font-family: 'Open Sans',sans-serif;
   font-size: 90%;
   color: #4a4e50;
   border-bottom: 1px dotted #e7ebed;
@@ -160,6 +174,7 @@
 
 
 .fieldSet {
+  font-family: 'Open Sans',sans-serif;
   border: 0;
   margin: 0;
   padding: 0;
@@ -169,6 +184,7 @@
 }
 
 .inputForm {
+  font-family: 'Open Sans',sans-serif;
   font-size: 90%;
   display: block;
   margin-top: 0em;
@@ -185,6 +201,7 @@
 }
 
 .inputForm div label {
+  font-family: 'Open Sans',sans-serif;
   padding-top: .5em;
   float: left;
   width: 50%;
@@ -202,5 +219,96 @@
   position: relative;
   top: .1em;
   margin-right: .25em;
+}
+
+.formRow input {
+  font-family: 'Open Sans',sans-serif;
+  margin: 0;
+  padding: .5em;
+  border: 1px solid #a8acae;
+  border-radius: .25em;
+  min-width: 20ex;
+  max-width: 50%;
+  width: 150%;
+  height: 2.5em;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-box-shadow: 0 1px 2px #CCC;
+  box-shadow: 0 1px 2px #CCC;
+  background: #FFF!important;
+}
+
+.fieldInfo {
+  padding-top: .5em;
+  font-size: 85%;
+  color: #4a4e50;
+  clear: both;
+}
+
+.formSubmit {
+  display: flex;
+  -ms-flex-pack: center;
+  align-items: center;
+  justify-content: center;
+  border-top: 1px solid #e7ebed;
+  padding: 1em;
+  padding-bottom: 0;
+  margin: 0;
+}
+
+.backButton{
+  font-family: 'Open Sans',sans-serif;
+  margin: 0;
+  padding: 0;
+  font-weight: 400;
+  list-style: none;
+  background: #347aa1;
+  color: #fff;
+  border-radius: 1.25em;
+  padding: .5em 1.5em;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  height: 2.66em;
+  margin-top: .25em;
+  margin-bottom: .25em;
+  margin-right: 1em;
+  font-size: 112%;
+  border: 1px rgba(52,122,161,.3) solid;
+  background: rgba(74,78,80,.1) url(/themes/izmir/images/arrow-left.103.svg) no-repeat .66em center;
+  background-size: 1em 1em;
+  padding-left: 2em;
+  -webkit-box-ordinal-group: 2;
+  -ms-flex-order: 1;
+  order: 1;
+  background: rgba(74,78,80,.1);
+  border: 1px rgba(74,78,80,.3) solid;
+  color: rgba(74,78,80,.9);
+}
+
+.submitButton  {
+  font-family: 'Open Sans',sans-serif;
+  border: none;
+  margin: 0;
+  padding: 0;
+  font-weight: 400;
+  list-style: none;
+  background: #347aa1;
+  color: #fff;
+  border-radius: 1.25em;
+  padding: .5em 1.5em;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  height: 2.66em;
+  margin-top: .25em;
+  margin-bottom: .25em;
+  margin-right: 1em;
+  font-size: 112%;
+  border: 1px rgba(52,122,161,.3) solid;
+  background: #347aa1 url(/themes/izmir/images/button-right.103.svg) no-repeat right center;
+  background-size: 1.4em 1.1em;
+  padding-right: 2em;
+  -webkit-box-ordinal-group: 3;
+  -ms-flex-order: 2;
+  order: 2;
 }
 
