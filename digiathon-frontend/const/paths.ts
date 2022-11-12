@@ -3,4 +3,5 @@ export const PATHS = {
   intro: '/',
   login: '/login',
   noter: '/noter',
+  request: '/request',
 };

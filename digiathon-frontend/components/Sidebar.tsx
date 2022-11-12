@@ -1,14 +1,11 @@
 import { clsnm } from '@ethylene/utils';
-import { useAuthorizedUser } from 'store/AuthHooks';
+import { useAuthorizedUser, usePage, useSetPage } from 'store/AuthHooks';
 import { Page } from 'types/app';
 
-export const Sidebar = ({
-  page,
-  setPage,
-}: {
-  page: Page;
-  setPage: (to: Page) => void;
-}) => {
+export const Sidebar = () => {
+  const page = usePage();
+  const setPage = useSetPage();
+
   const isPageActive = (_page: Page) => page === _page;
   const authorizedUser = useAuthorizedUser();
 

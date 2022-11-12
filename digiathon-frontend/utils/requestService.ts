@@ -12,5 +12,7 @@ export const useAxios = () => {
   const apiGetSignRequests = (params: { sender: string }) =>
     axios.get('/requests', { params: params });
 
-  return { apiCreateSignRequest, apiGetSignRequests };
+  const apiGetSignRequestById = (id: string) => axios.get(`/requests/${id}`);
+
+  return { apiCreateSignRequest, apiGetSignRequestById, apiGetSignRequests };
 };

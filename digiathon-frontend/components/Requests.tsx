@@ -7,6 +7,8 @@ import { SignRequest } from 'types/app';
 import { Button, Input, Modal, Spinner } from 'ui';
 import { useNotify } from 'hooks/useNotify';
 import { AxiosResponse } from 'axios';
+import Link from 'next/link';
+import { PATHS } from 'const/paths';
 
 export const Requests = ({
   modalController,
@@ -102,9 +104,11 @@ export const Requests = ({
                   {new Date(item.created * 1000).toTimeString()}
                 </span>
               </div>
-              <div className="ml-auto">
-                <Button color="primary">Görüntüle</Button>
-              </div>
+              <Link href={`${PATHS.request}/${item._id}`}>
+                <div className="ml-auto">
+                  <Button color="primary">Görüntüle</Button>
+                </div>
+              </Link>
             </div>
           ))}
         </div>
