@@ -22,7 +22,15 @@ contract NoterKayit {
         noterAdresleri[eskiNoter] = false;
     }
 
-    function noterDahil(address[] calldata adresListesi) external view returns (bool) {
+    function noterMi(address _adres) external returns (bool) {
+        return noterAdresleri[_adres];
+    }
+
+    function noterDahil(address[] calldata adresListesi)
+        external
+        view
+        returns (bool)
+    {
         uint256 listeUzunlugu = adresListesi.length;
         for (uint256 i = 0; i < listeUzunlugu; i++) {
             if (noterAdresleri[adresListesi[i]]) {
