@@ -1,28 +1,18 @@
 import { clsnm } from '@ethylene/utils';
 import { NextPage } from 'next';
 import trLogin from '../assets/tr-login.png';
-import { AiOutlineWallet, AiOutlineLock } from 'react-icons/ai';
 import styles from 'styles/login.module.scss';
-import { useEffect, useState } from 'react';
-import { useAddress, useConnection, useIsConnected } from '@ethylene/hooks';
+import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { PATHS } from 'const/paths';
 import { useSetAuthorizedUser } from 'store/AuthHooks';
-import { users } from 'const/users';
-import { usersById } from 'const/usersByID';
+import { usersById } from 'const/usersByIds';
 import { useNotify } from 'hooks/useNotify';
-import { add } from 'cypress/types/lodash';
 
 const Login: NextPage = () => {
   const router = useRouter();
-  const [loginChoose, setLoginChoose] = useState('password');
-  const isConnected = useIsConnected();
   const [id, setID] = useState('');
   const [password, setPassword] = useState('');
-  const address = useAddress();
-  const { connect } = useConnection({
-    onConnect: () => {},
-  });
   const setAuthorizerUser = useSetAuthorizedUser();
   const notify = useNotify();
 
@@ -78,7 +68,7 @@ const Login: NextPage = () => {
           </section>
           <nav className={clsnm(styles.methodSelector)}>
             <div className={clsnm(styles.tabChoser)}></div>
-            {loginChoose == 'password' && (
+            {true && (
               <section className={clsnm(styles.pageContent)}>
                 <div className={clsnm(styles.richText)}>
                   T.C. Kimlik Numaranızı ve e-Devlet Şifrenizi kullanarak
@@ -135,22 +125,6 @@ const Login: NextPage = () => {
                   </form>
                 </div>
               </section>
-            )}
-            {loginChoose == 'wallet' && (
-              <div className="h-60 flex justify-center items-center">
-                <button
-                  onClick={() => {
-                    if (!isConnected) {
-                      connect('injected');
-                    } else {
-                      authenticate();
-                    }
-                  }}
-                  className={clsnm(' w-auto h-5', styles.submitButton)}
-                >
-                  Mobil Cüzdanımı Bağla
-                </button>
-              </div>
             )}
           </nav>
         </main>

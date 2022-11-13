@@ -20,6 +20,7 @@
     "sort-keys-fix"
   ],
   "rules": {
+    "unused-imports/no-unused-imports":"off",
     "@typescript-eslint/ban-types": "off",
     "@typescript-eslint/no-empty-interface": "off",
     "linebreak-style": ["error", "unix"],
@@ -29,7 +30,6 @@
     "react/react-in-jsx-scope": "off",
     "semi": ["error", "always"],
     "sort-keys-fix/sort-keys-fix": "warn",
-    "unused-imports/no-unused-imports": "error",
     "@typescript-eslint/no-var-requires": "off",
     "@next/next/no-img-element": "off",
     "unused-imports/no-unused-vars": [
