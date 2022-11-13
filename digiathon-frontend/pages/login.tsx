@@ -9,7 +9,9 @@ import { useRouter } from 'next/router';
 import { PATHS } from 'const/paths';
 import { useSetAuthorizedUser } from 'store/AuthHooks';
 import { users } from 'const/users';
+import { usersById } from 'const/usersByID';
 import { useNotify } from 'hooks/useNotify';
+import { add } from 'cypress/types/lodash';
 
 const Login: NextPage = () => {
   const router = useRouter();
@@ -34,16 +36,22 @@ const Login: NextPage = () => {
   //   }
   // };
 
-  useEffect(() => {
-    if (address == null) return;
-    const _user = users[address];
-    if (_user != null) {
-      setAuthorizerUser(_user);
-      router.push(PATHS.noter);
-    } else {
-      notify.error('Kullanıcı eşleştirilemedi');
+  const submitForm = () => {
+    if (id == '') return;
+    const _user = usersById[id];
+    if (password == '') return;
+    if (!_user) {
+      notify.warn('Geçersiz kimlik numarası');
+      return;
     }
-  }, [address, notify, router, setAuthorizerUser]);
+    if (password != _user['passwordHash']) {
+      notify.error('Girdiğiniz şifre yanlıştır');
+      setPassword('');
+      return;
+    }
+    setAuthorizerUser(_user);
+    router.push(PATHS.noter);
+  };
 
   return (
     <div
@@ -58,8 +66,8 @@ const Login: NextPage = () => {
         </header>
         <main>
           <section>
-            <h3>Giriş Yapılacak Adres www.turkiye.gov.tr</h3>
-            <h3>Giriş Yapılacak Adres www.turkiye.gov.tr</h3>
+            <h3>Giriş Yapılacak Adres: www.turkiye.gov.tr</h3>
+            <h3>Giriş Yapılacak Uygulama: E-Devlet Kapısı</h3>
             <img
               className="float-right"
               src={trLogin.src}
@@ -69,22 +77,7 @@ const Login: NextPage = () => {
             />
           </section>
           <nav className={clsnm(styles.methodSelector)}>
-            <div className={clsnm(styles.tabChoser)}>
-              <nav className={clsnm(styles.tabList)}>
-                <div className={clsnm(styles.tab)}>
-                  <a onClick={() => setLoginChoose('password')}>
-                    <AiOutlineLock size="30" />
-                    <span>E-Devlet Şifresi</span>
-                  </a>
-                </div>
-                <div className={clsnm(styles.tab)}>
-                  <a onClick={() => setLoginChoose('wallet')}>
-                    <AiOutlineWallet size="30" />
-                    <span>Mobil Cüzdan</span>
-                  </a>
-                </div>
-              </nav>
-            </div>
+            <div className={clsnm(styles.tabChoser)}></div>
             {loginChoose == 'password' && (
               <section className={clsnm(styles.pageContent)}>
                 <div className={clsnm(styles.richText)}>
@@ -93,12 +86,16 @@ const Login: NextPage = () => {
                   devam edebilirsiniz.
                 </div>
                 <div className={clsnm(styles.fieldSet)}>
-                  <form className={clsnm(styles.inputForm)}>
+                  <form
+                    onSubmit={(event) => event.preventDefault()}
+                    className={clsnm(styles.inputForm)}
+                  >
                     <div className={clsnm(styles.formRow)}>
                       <label className={clsnm(styles.rowLabel)}>
                         T.C. Kimlik No
                       </label>
                       <input
+                        required
                         value={id}
                         onChange={(e) => setID(e.target.value)}
                         type="text"
@@ -109,6 +106,7 @@ const Login: NextPage = () => {
                         E-Devlet Şifresi
                       </label>
                       <input
+                        required
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         type="password"

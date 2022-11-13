@@ -9,6 +9,11 @@ import { PATHS } from 'const/paths';
 import { useConnection, useIsConnected } from '@ethylene/hooks';
 import { useAuthorizedUser, useSetAuthorizedUser } from 'store/AuthHooks';
 import { useDropdown } from 'hooks';
+import { connect } from 'http2';
+import { useEffect } from 'react';
+import { useAddress } from '@ethylene/redux/web3/Web3ReducerHooks';
+import { useNotify } from 'hooks/useNotify';
+import { useQueryParams } from 'hooks/useQueryParams';
 
 export const Navbar = ({
   state = 'default',
@@ -20,6 +25,36 @@ export const Navbar = ({
   const isConnected = useIsConnected();
   const authorizedUser = useAuthorizedUser();
   const setAuthorizedUser = useSetAuthorizedUser();
+  const address = useAddress();
+  const notify = useNotify();
+
+  const { connect } = useConnection({
+    onConnect: () => {},
+  });
+
+  useEffect(() => {
+    if (!address || !authorizedUser) {
+      return;
+    } else if (address != authorizedUser['account']) {
+      notify.warn('Lütfen E-Devlet cüzdanızıla giriş yapınız');
+      disconnect();
+      return;
+    }
+  }, [address]);
+
+  useEffect(() => {
+    if (!isConnected) {
+      router.push(PATHS.intro);
+    }
+  });
+
+  const compactAddress = () => {
+    return address
+      ? address.substring(0, 5) +
+          '....' +
+          address.substring(address.length - 5, address.length)
+      : '';
+  };
 
   const { floating, reference, popperStyles, toggle, isOpen, closeRef } =
     useDropdown({
@@ -42,11 +77,11 @@ export const Navbar = ({
               <img className="w-48" alt="logo" src={CONFIG.APP_LOGO} />
             </a>
           </Link>
-          {!isConnected ? (
+          {!authorizedUser ? (
             <Button
               onClick={() => router.push(PATHS.login)}
               size="small"
-              className="pl-4 pr-4"
+              className="pl-4 pr-4 transition-all"
               color="light"
               rightIcon={<IoEnterOutline />}
             >
@@ -57,11 +92,13 @@ export const Navbar = ({
               <Button
                 forwardedRef={reference}
                 onClick={toggle}
+                style={isConnected ? { width: '300px' } : { width: '200px' }}
                 size="small"
                 className="pl-4 pr-4"
                 color="light"
                 rightIcon={<IoEnterOutline />}
               >
+                {compactAddress()} {isConnected && '|'}{' '}
                 {authorizedUser?.fullname}
               </Button>
               {isOpen && (
@@ -69,12 +106,32 @@ export const Navbar = ({
                   <DropdownMenu disablePadding>
                     <div
                       onClick={() => {
-                        disconnect();
+                        if (isConnected) {
+                          disconnect();
+                          router.push(PATHS.intro);
+                          return;
+                        }
+                        connect();
+                      }}
+                      className="bg-white hover:bg-neutral-100 active:bg-neutral-200 py-2 px-2 rounded-md cursor-pointer text-center"
+                    >
+                      <span className="text-sm font-light">
+                        {!isConnected
+                          ? 'Cüzdanımı Bağla'
+                          : 'Cüzdan Bağlantısını Kes'}
+                      </span>
+                    </div>
+                    <div
+                      onClick={() => {
+                        setAuthorizedUser(null);
+                        //disconnect();
                         router.replace(PATHS.intro);
                       }}
-                      className="bg-white hover:bg-neutral-100 active:bg-neutral-200 py-2 px-2 rounded-md cursor-pointer"
+                      className="bg-white hover:bg-neutral-100 active:bg-neutral-200 py-2 px-2 rounded-md cursor-pointer text-center"
                     >
-                      <span className="text-sm font-light">Çıkış yap</span>
+                      <span className="text-sm font-light text-right">
+                        Çıkış yap
+                      </span>
                     </div>
                   </DropdownMenu>
                 </div>

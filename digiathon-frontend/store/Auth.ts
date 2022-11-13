@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Page, User } from 'types/app';
+import { Page, UserById } from 'types/app';
 
 export interface AuthState {
   page: Page;
-  user: User | null;
+  user: UserById | null;
 }
 
 const initialState: AuthState = {
@@ -18,7 +18,7 @@ export const authSlice = createSlice({
     setPage: (state, action: PayloadAction<Page>) => {
       state.page = action.payload;
     },
-    setUser: (state, action: PayloadAction<User | null>) => {
+    setUser: (state, action: PayloadAction<UserById | null>) => {
       state.user = action.payload;
     },
   },
