@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 import { useAxios } from 'utils/requestService';
 import { SignRequest } from 'types/app';
 import { Button, Spinner } from 'ui';
-import { useNotify } from 'hooks/useNotify';
 import { AxiosResponse } from 'axios';
 import Link from 'next/link';
 import { PATHS } from 'const/paths';

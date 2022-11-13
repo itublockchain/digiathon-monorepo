@@ -23,12 +23,22 @@ export const useAxios = () => {
   const apiSubmitDocumentForSign = (id: string) =>
     axios.post(`/requests/${id}/submitForSign`);
 
+  const apiGetDocumentVerification = (id: string) =>
+    axios.get(`/requests/${id}/verification`);
+
+  const apiVerifyDocument = (
+    id: string,
+    data: { sender: string; type: 'accepted' | 'rejected' },
+  ) => axios.post(`/requests/${id}/verify`, data);
+
   return {
     apiCreateSignRequest,
+    apiGetDocumentVerification,
     apiGetSignApprovals,
     apiGetSignRequestById,
     apiGetSignRequests,
     apiSubmitDocument,
     apiSubmitDocumentForSign,
+    apiVerifyDocument,
   };
 };

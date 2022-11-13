@@ -1,28 +1,38 @@
 import { Container, Layout } from '@ethylene/components';
-import { useAddress, useIsConnected } from '@ethylene/hooks';
+import {
+  useAddress,
+  useContractFunction,
+  useIsConnected,
+} from '@ethylene/hooks';
 import { useRequest } from '@ethylene/hooks/useApiRequest';
 import { useModal } from '@ethylene/ui-hooks';
 import { Navbar } from 'components';
+import { ABI } from 'const/abi';
+import { BELGE } from 'const/address';
 import { useNotify } from 'hooks/useNotify';
 import { useQueryParams } from 'hooks/useQueryParams';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { SignRequest } from 'types/app';
 import { Button, Modal, Spinner } from 'ui';
 import { useAxios } from 'utils/requestService';
 
-const formatPageName = (requestId: string) => {
-  return `İstek - ${requestId}`;
-};
-
 const Approve = () => {
-  const { apiGetSignRequestById } = useAxios();
+  const {
+    apiGetSignRequestById,
+    apiGetDocumentVerification,
+    apiVerifyDocument,
+  } = useAxios();
   const isConnected = useIsConnected();
   const { id } = useQueryParams<{ id: string }>();
   const [request, setRequest] = useState<SignRequest | null>(null);
+  const [verif, setVerif] = useState<any>(null);
+  const notify = useNotify();
+  const address = useAddress();
 
   useEffect(() => {
     if (!isConnected || !id) return;
 
+    getDocumentVerification.exec(id);
     getSignRequestReq.exec(id);
   }, [isConnected, id]);
 
@@ -34,7 +44,44 @@ const Approve = () => {
       },
     },
   );
+
+  const getDocumentVerification = useRequest(
+    (id: string) => apiGetDocumentVerification(id),
+    {
+      onSuccess: (res) => {
+        setVerif(res.data);
+      },
+    },
+  );
+
+  const verifyDocumentReq = useRequest(
+    (id: string, data: { sender: string; type: 'accepted' | 'rejected' }) =>
+      apiVerifyDocument(id, data),
+    {
+      onSuccess: (res) => {
+        setVerif(res.data);
+      },
+    },
+  );
+
   const modal = useModal();
+
+  const signTxn = useContractFunction({
+    abi: ABI,
+    address: BELGE,
+    method: 'noterOlarakImzala',
+    onSuccess: () => {
+      notify.success('Belge başarıyla onaylandı');
+      verifyDocumentReq.exec(id, { sender: address, type: 'accepted' });
+    },
+  });
+
+  const sign = () => {
+    if (request == null) {
+      return;
+    }
+    signTxn.write(request.document?.hash);
+  };
 
   return (
     <Layout>
@@ -77,10 +124,20 @@ const Approve = () => {
                         <Button color="light" onClick={modal.open}>
                           Görüntüle
                         </Button>
-                        <Button color="success" onClick={modal.open}>
+                        <Button
+                          loading={signTxn.isLoading}
+                          onClick={sign}
+                          color="success"
+                          disabled={verif != null}
+                        >
                           Onayla
                         </Button>
                       </div>
+                    )}
+                    {verif != null && (
+                      <span className="mt-4 block">
+                        Bu belgeyi başarıyla onayladınız
+                      </span>
                     )}
                   </div>
                 </div>

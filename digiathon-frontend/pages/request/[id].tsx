@@ -203,6 +203,7 @@ const Request = () => {
                     </div>
                     <div className="bg-white h-max rounded-b-md p-6">
                       <Button
+                        disabled={request.submitted}
                         loading={sendApproveTxn.isLoading || submitReq.loading}
                         onClick={sign}
                         color="success"
