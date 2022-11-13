@@ -25,4 +25,10 @@ export const usersById: { [key: string]: UserById } = {
     account: '0xA63A810228a180767d3502EF8d21DbF4Da0D6b43',
     type: 'signer',
   },
+  '5555': {
+    passwordHash: '5555',
+    fullname: 'Noter Test',
+    account: '0xE0fEb9D91814ed35099dee7640045dFD1b80e86e',
+    type: 'signer',
+  },
 };
