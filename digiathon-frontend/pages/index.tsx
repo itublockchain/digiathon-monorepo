@@ -2,6 +2,7 @@ import { Layout } from '@ethylene/components';
 import { Navbar } from 'components';
 import type { NextPage } from 'next';
 import IntroBg from 'assets/intro-bg.png';
+import Banner from 'assets/banner2.png';
 import { Input, Typography } from 'ui';
 import { FaSearch, FaFileSignature } from 'react-icons/fa';
 import { TbRotateDot } from 'react-icons/tb';
@@ -9,7 +10,6 @@ import Mobile from 'assets/mobile.png';
 import Link from 'next/link';
 import { useIsConnected } from '@ethylene/hooks';
 import { useNotify } from 'hooks/useNotify';
-import { PATHS } from 'const/paths';
 import { useAuthorizedUser } from 'store/AuthHooks';
 
 const Home: NextPage = () => {
@@ -82,7 +82,7 @@ const Home: NextPage = () => {
               <div className="w-24 h-24 flex items-center justify-center rounded-full bg-mainBlue hover:bg-mainBlueHover text-white border-4 border-white cursor-pointer">
                 <FaFileSignature className="text-3xl" />
               </div>
-              <span className="font-semibold text-lg mt-2">e-Imzalar</span>
+              <span className="font-semibold text-lg mt-2">e-Noter</span>
               <span className="font-light text-xs mt-1">
                 Blok zincir tabanlı elektronik noter ve imzalama hizmetleri
               </span>
@@ -90,7 +90,10 @@ const Home: NextPage = () => {
           </button>
         )}
       </div>
-      <div className="relative w-full flex justify-center min-h-96">
+      <div className="relative w-full flex justify-center min-h-96 mt-8">
+        <img src={Banner.src} className="mt-12 w-full" alt="mobile platform" />
+      </div>
+      <div className="relative w-full flex justify-center min-h-96 mt-8">
         <img src={Mobile.src} className="mt-12 w-full" alt="mobile platform" />
         <div className="absolute translate-x-72 top-48 flex flex-col w-96">
           <span className="font-light text-2xl">

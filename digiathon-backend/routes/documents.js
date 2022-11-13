@@ -20,13 +20,16 @@ router.get("/:hash", authMiddleware, async (req, res) => {
     const document = await SubmittedDocument.findOne({
       hash: hash,
     });
-    QRCode.toDataURL(`${url}/belge/${hash}`, function (err, url) {
-      if (err) throw err;
-      res.json({
-        image: url,
-        data: document?.data,
-      });
-    });
+    QRCode.toDataURL(
+      `${url ?? "https://digiathon-monorepo-dly5.vercel.app/"}/belge/${hash}`,
+      function (err, url) {
+        if (err) throw err;
+        res.json({
+          image: url,
+          data: document?.data,
+        });
+      }
+    );
   } catch (err) {
     return res.status(500).json({
       msg: "Server error",

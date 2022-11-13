@@ -174,11 +174,13 @@ const Request = () => {
                 width: '300px',
                 height: '300px',
                 position: 'fixed',
-                left: '150x',
-                bottom: '25%',
+                left: '50%',
+                transform: 'translate(-40%)',
+                bottom: '12px',
               }}
               src={qrData.image}
             />
+            <span className="mt-2 block">{request?.document?.hash ?? ''}</span>
           </div>
         </Modal>
       )}
@@ -288,7 +290,7 @@ const Request = () => {
                   )}
 
                   <Button
-                    onClick={() => submitForSignReq.exec()}
+                    onClick={() => submitForSignReq.exec(id)}
                     disabled={signature == null || request.submitted}
                     loading={submitForSignReq.loading}
                     color="primary"
