@@ -10,10 +10,12 @@ import Link from 'next/link';
 import { useIsConnected } from '@ethylene/hooks';
 import { useNotify } from 'hooks/useNotify';
 import { PATHS } from 'const/paths';
+import { useAuthorizedUser } from 'store/AuthHooks';
 
 const Home: NextPage = () => {
   const isConnected = useIsConnected();
   const notify = useNotify();
+  const authorizedUser = useAuthorizedUser();
   return (
     <Layout>
       <Navbar />
@@ -57,7 +59,7 @@ const Home: NextPage = () => {
             Sorgulama, Başvuru ve Ödeme hizmetleri.
           </span>
         </div>
-        {isConnected ? (
+        {isConnected || !authorizedUser ? (
           <Link href="/anasayfa" className="flex flex-col items-center">
             <a className="flex flex-col items-center">
               <div className="w-24 h-24 flex items-center justify-center rounded-full bg-mainBlue hover:bg-mainBlueHover text-white border-4 border-white cursor-pointer">
@@ -72,9 +74,9 @@ const Home: NextPage = () => {
         ) : (
           <button
             className="flex flex-col items-center"
-            onClick={() =>
-              notify.warn('Lütfen E-Devlet cüzdanınızı bağlayınız')
-            }
+            onClick={() => {
+              notify.warn('Lütfen E-Devlet cüzdanınızı bağlayınız');
+            }}
           >
             <a className="flex flex-col items-center">
               <div className="w-24 h-24 flex items-center justify-center rounded-full bg-mainBlue hover:bg-mainBlueHover text-white border-4 border-white cursor-pointer">
