@@ -187,7 +187,7 @@ router.post("/:id/submitForSign", authMiddleware, async (req, res) => {
 
     const newDocument = await SignRequest.findOneAndUpdate(
       {
-        requestId: id,
+        _id: id,
       },
       { $set: { submitted: true } }
     );

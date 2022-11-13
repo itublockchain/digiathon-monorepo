@@ -112,7 +112,11 @@ const Login: NextPage = () => {
                         styles.formSubmit,
                       )}
                     >
-                      <button className={clsnm(styles.backButton)}>
+                      <button
+                        type="button"
+                        onClick={() => router.push(PATHS.intro)}
+                        className={clsnm(styles.backButton)}
+                      >
                         {'İptal'}
                       </button>
                       <button

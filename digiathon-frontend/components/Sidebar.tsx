@@ -1,6 +1,7 @@
 import { clsnm } from '@ethylene/utils';
 import { useAuthorizedUser, usePage, useSetPage } from 'store/AuthHooks';
 import { Page } from 'types/app';
+import AppLogo from 'assets/app-logo-lg.png';
 
 export const Sidebar = () => {
   const page = usePage();
@@ -11,7 +12,9 @@ export const Sidebar = () => {
 
   return (
     <div className="col-span-3 bg-neutral-100 rounded-md p-2 min-h-maximum">
-      <span className="mb-2 block">LOGO</span>
+      <span className="mb-2 flex justify-center">
+        <img src={AppLogo.src} className="w-32" alt="AppLogo" />
+      </span>
 
       <div
         onClick={() => setPage(Page.requests)}
