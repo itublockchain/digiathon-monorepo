@@ -288,7 +288,7 @@ const Request = () => {
                   )}
 
                   <Button
-                    onClick={() => submitForSignReq.exec()}
+                    onClick={() => submitForSignReq.exec(id)}
                     disabled={signature == null || request.submitted}
                     loading={submitForSignReq.loading}
                     color="primary"
