@@ -31,7 +31,7 @@ export const useAxios = () => {
     data: { sender: string; type: 'accepted' | 'rejected' },
   ) => axios.post(`/requests/${id}/verify`, data);
 
-  const apiGetDocumentQr = (hash: string, params: { url?: string }) =>
+  const apiGetDocumentQr = (hash: string, params?: { url?: string }) =>
     axios.get(`/documents/${hash}`, params);
 
   return {

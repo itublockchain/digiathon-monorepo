@@ -11,11 +11,14 @@ const Request = () => {
   const [qrData, setQrData] = useState<any>(null);
   const { hash } = useQueryParams<{ hash: string }>();
 
-  const getQrDataReq = useRequest((id: string) => apiGetDocumentQr(id), {
-    onSuccess: (res) => {
-      setQrData(res.data);
+  const getQrDataReq = useRequest(
+    (id: string, params: any) => apiGetDocumentQr(id, params),
+    {
+      onSuccess: (res) => {
+        setQrData(res.data);
+      },
     },
-  });
+  );
 
   useEffect(() => {
     if (hash != null) {
