@@ -21,6 +21,7 @@
   ],
   "rules": {
     "unused-imports/no-unused-imports":"off",
+    "@typescript-eslint/no-empty-function":"off",
     "@typescript-eslint/ban-types": "off",
     "@typescript-eslint/no-empty-interface": "off",
     "linebreak-style": ["error", "unix"],
