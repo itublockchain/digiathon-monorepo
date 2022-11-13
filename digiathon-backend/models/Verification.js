@@ -17,9 +17,9 @@ const VerificationSchema = new Schema({
   },
   comment: {
     type: String,
-    required: true,
+    required: false,
   },
-  request: {
+  requestId: {
     type: mongoose.Types.ObjectId,
     ref: "SignRequest",
   },

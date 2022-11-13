@@ -42,12 +42,6 @@ export const Navbar = ({
     }
   }, [address]);
 
-  useEffect(() => {
-    if (!isConnected) {
-      router.push(PATHS.intro);
-    }
-  });
-
   const compactAddress = () => {
     return address
       ? address.substring(0, 5) +
@@ -79,7 +73,9 @@ export const Navbar = ({
           </Link>
           {!authorizedUser ? (
             <Button
-              onClick={() => router.push(PATHS.login)}
+              onClick={() => {
+                router.replace(PATHS.login);
+              }}
               size="small"
               className="pl-4 pr-4 transition-all"
               color="light"

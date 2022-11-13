@@ -19,4 +19,10 @@ export const usersById: { [key: string]: UserById } = {
     account: '0x9B8990Fd2cE1F6633499953B3B27a0E15Ff3eb9b',
     type: 'user',
   },
+  '4444': {
+    passwordHash: '4444',
+    fullname: 'Tahir Özpala',
+    account: '0xA63A810228a180767d3502EF8d21DbF4Da0D6b43',
+    type: 'signer',
+  },
 };

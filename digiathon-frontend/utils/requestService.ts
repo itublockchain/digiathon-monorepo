@@ -31,8 +31,11 @@ export const useAxios = () => {
     data: { sender: string; type: 'accepted' | 'rejected' },
   ) => axios.post(`/requests/${id}/verify`, data);
 
+  const apiGetDocumentQr = (hash: string) => axios.get(`/documents/${hash}`);
+
   return {
     apiCreateSignRequest,
+    apiGetDocumentQr,
     apiGetDocumentVerification,
     apiGetSignApprovals,
     apiGetSignRequestById,
