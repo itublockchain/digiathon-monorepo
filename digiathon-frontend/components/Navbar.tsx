@@ -66,7 +66,7 @@ export const Navbar = ({
     >
       <Container>
         <div className="flex justify-between items-center w-full ">
-          <Link href={PATHS.intro}>
+          <Link href={isConnected ? PATHS.noter : PATHS.intro}>
             <a>
               <img className="w-48" alt="logo" src={CONFIG.APP_LOGO} />
             </a>
