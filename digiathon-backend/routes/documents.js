@@ -14,17 +14,24 @@ var merger = new PDFMerger();
  */
 router.get("/:hash", authMiddleware, async (req, res) => {
   const hash = req.params.hash;
-  const document = await SubmittedDocument.findOne({
-    hash: hash,
-  });
+  const { url } = req.query;
 
-  QRCode.toDataURL(`http://localhost:3000/belge/${hash}`, function (err, url) {
-    if (err) throw err;
-    res.json({
-      image: url,
-      data: document.data,
+  try {
+    const document = await SubmittedDocument.findOne({
+      hash: hash,
     });
-  });
+    QRCode.toDataURL(`${url}/belge/${hash}`, function (err, url) {
+      if (err) throw err;
+      res.json({
+        image: url,
+        data: document?.data,
+      });
+    });
+  } catch (err) {
+    return res.status(500).json({
+      msg: "Server error",
+    });
+  }
 });
 
 module.exports = router;
