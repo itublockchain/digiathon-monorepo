@@ -57,17 +57,36 @@ const Home: NextPage = () => {
             Sorgulama, Başvuru ve Ödeme hizmetleri.
           </span>
         </div>
-        <Link href="/noter" className="flex flex-col items-center">
-          <a className="flex flex-col items-center">
-            <div className="w-24 h-24 flex items-center justify-center rounded-full bg-mainBlue hover:bg-mainBlueHover text-white border-4 border-white cursor-pointer">
-              <FaFileSignature className="text-3xl" />
-            </div>
-            <span className="font-semibold text-lg mt-2">e-Imzalar</span>
-            <span className="font-light text-xs mt-1">
-              Blok zincir tabanlı elektronik noter ve imzalama hizmetleri
-            </span>
-          </a>
-        </Link>
+        {isConnected ? (
+          <Link href="/anasayfa" className="flex flex-col items-center">
+            <a className="flex flex-col items-center">
+              <div className="w-24 h-24 flex items-center justify-center rounded-full bg-mainBlue hover:bg-mainBlueHover text-white border-4 border-white cursor-pointer">
+                <FaFileSignature className="text-3xl" />
+              </div>
+              <span className="font-semibold text-lg mt-2">e-Imzalar</span>
+              <span className="font-light text-xs mt-1">
+                Blok zincir tabanlı elektronik noter ve imzalama hizmetleri
+              </span>
+            </a>
+          </Link>
+        ) : (
+          <button
+            className="flex flex-col items-center"
+            onClick={() =>
+              notify.warn('Lütfen E-Devlet cüzdanınızı bağlayınız')
+            }
+          >
+            <a className="flex flex-col items-center">
+              <div className="w-24 h-24 flex items-center justify-center rounded-full bg-mainBlue hover:bg-mainBlueHover text-white border-4 border-white cursor-pointer">
+                <FaFileSignature className="text-3xl" />
+              </div>
+              <span className="font-semibold text-lg mt-2">e-Imzalar</span>
+              <span className="font-light text-xs mt-1">
+                Blok zincir tabanlı elektronik noter ve imzalama hizmetleri
+              </span>
+            </a>
+          </button>
+        )}
       </div>
       <div className="relative w-full flex justify-center min-h-96">
         <img src={Mobile.src} className="mt-12 w-full" alt="mobile platform" />
