@@ -24,8 +24,12 @@ const hashValue = (val: string): string => {
 };
 
 const Request = () => {
-  const { apiGetSignRequestById, apiSubmitDocument, apiSubmitDocumentForSign } =
-    useAxios();
+  const {
+    apiGetSignRequestById,
+    apiSubmitDocument,
+    apiSubmitDocumentForSign,
+    apiGetDocumentQr,
+  } = useAxios();
   const isConnected = useIsConnected();
   const { id } = useQueryParams<{ id: string }>();
   const [request, setRequest] = useState<SignRequest | null>(null);
@@ -36,6 +40,10 @@ const Request = () => {
   const [file, setFile] = useState<File | null>(null);
   const [b64, setB64] = useState<string | null>(null);
   const modal = useModal();
+  const qrModal = useModal();
+
+  const [verif, setVerif] = useState<any>(null);
+  const [qrData, setQrData] = useState<any>(null);
 
   const getSignRequestReq = useRequest(
     (id: string) => apiGetSignRequestById(id),
@@ -46,9 +54,23 @@ const Request = () => {
           setB64(res.data.document.data);
           setSignature(res.data.document.hash);
         }
+        if (res.data.verification != null) {
+          setVerif(res.data.verification);
+        }
       },
     },
   );
+  const getQrDataReq = useRequest((id: string) => apiGetDocumentQr(id), {
+    onSuccess: (res) => {
+      setQrData(res.data);
+    },
+  });
+
+  useEffect(() => {
+    if (verif != null && request != null) {
+      getQrDataReq.exec(request.document?.hash);
+    }
+  }, [verif, request]);
 
   const submitReq = useRequest(
     (id: string, data: SubmitDocumentInput) => apiSubmitDocument(id, data),
@@ -132,6 +154,34 @@ const Request = () => {
           <iframe className="w-full" style={{ height: '90vh' }} src={b64} />
         </Modal>
       )}
+      {qrData != null && (
+        <Modal
+          bodyProps={{ style: { maxHeight: '95vh' } }}
+          width="720px"
+          modalController={qrModal}
+        >
+          <div className="flex-col overflow-auto">
+            <iframe
+              className="w-full"
+              style={{
+                minHeight: '640px',
+                zIndex: 1,
+              }}
+              src={qrData.data}
+            />
+            <iframe
+              style={{
+                width: '300px',
+                height: '300px',
+                position: 'fixed',
+                left: '150x',
+                bottom: '25%',
+              }}
+              src={qrData.image}
+            />
+          </div>
+        </Modal>
+      )}
 
       <div className="main">
         <Container className="pt-10">
@@ -203,6 +253,7 @@ const Request = () => {
                     </div>
                     <div className="bg-white h-max rounded-b-md p-6">
                       <Button
+                        disabled={request.submitted}
                         loading={sendApproveTxn.isLoading || submitReq.loading}
                         onClick={sign}
                         color="success"
@@ -217,6 +268,24 @@ const Request = () => {
                       </span>
                     </div>
                   </div>
+
+                  {verif != null && (
+                    <div
+                      className={clsnm(
+                        'flex flex-col w-full bg-white shadow-md mt-10 rounded-md',
+                        b64 == null && 'pointer-events-none opacity-50',
+                      )}
+                    >
+                      <div className="flex items-center w-full h-12 bg-neutral-100 rounded-t-md pl-4">
+                        <span>Belgeniz imzalanmıştır</span>
+                      </div>
+                      <div className="bg-white h-max rounded-b-md p-6">
+                        <Button onClick={qrModal.open} color="light">
+                          Görüntüle
+                        </Button>
+                      </div>
+                    </div>
+                  )}
 
                   <Button
                     onClick={() => submitForSignReq.exec()}

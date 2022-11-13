@@ -1,4 +1,5 @@
 import { Container, Layout } from '@ethylene/components';
+import { useIsConnected } from '@ethylene/hooks';
 import { useModal } from '@ethylene/ui-hooks';
 import { Navbar } from 'components';
 import { Approvals } from 'components/Approvals';
@@ -19,6 +20,7 @@ const Noter = () => {
   const page = usePage();
   const authorizedUser = useAuthorizedUser();
   const router = useRouter();
+  const isConnected = useIsConnected();
 
   const formatPageName = (page: Page) => {
     switch (page) {
@@ -27,7 +29,6 @@ const Noter = () => {
       case Page.requests:
         return 'Taleplerim';
     }
-    return;
   };
 
   useEffect(() => {
@@ -37,6 +38,12 @@ const Noter = () => {
   }, [authorizedUser, router]);
 
   const createModal = useModal();
+
+  useEffect(() => {
+    if (!isConnected) {
+      router.push(PATHS.intro);
+    }
+  });
 
   return (
     <Layout>

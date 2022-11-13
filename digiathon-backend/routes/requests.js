@@ -5,6 +5,7 @@ const SignRequest = require("../models/SignRequest");
 const router = express.Router();
 const { body, validationResult } = require("express-validator");
 const SubmittedDocument = require("../models/SubmittedDocument");
+const Verification = require("../models/Verification");
 
 /**
  * @dev Get single request by id
@@ -21,6 +22,10 @@ router.get("/:id", authMiddleware, async (req, res) => {
       requestId: id,
     });
 
+    const verification = await Verification.findOne({
+      requestId: id,
+    });
+
     let payload = {};
     if (request != null) {
       payload = {
@@ -30,6 +35,7 @@ router.get("/:id", authMiddleware, async (req, res) => {
         created: request.created,
         title: request.title,
         document: uploadedDocument,
+        verification: verification,
       };
       res.json(payload);
     } else {
@@ -72,7 +78,7 @@ router.post("/approvals", authMiddleware, async (req, res) => {
 
   try {
     const doc = await SignRequest.find({
-      sender,
+      sender: { $ne: sender },
       submitted: true,
     }).sort({ _id: 1 });
     res.json(doc);
@@ -189,6 +195,56 @@ router.post("/:id/submitForSign", authMiddleware, async (req, res) => {
     await newDocument.save();
 
     return res.json(newDocument);
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({
+      msg: "Server error",
+    });
+  }
+});
+
+/**
+ * @dev Get document verification
+ */
+router.get("/:id/verification", authMiddleware, async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const doc = await Verification.findOne({
+      requestId: id,
+    });
+
+    if (doc == null) {
+      return res.status(404).json({ msg: "Not found" });
+    }
+
+    return res.json(doc);
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({
+      msg: "Server error",
+    });
+  }
+});
+
+/**
+ * @dev Get document verification
+ */
+router.post("/:id/verify", authMiddleware, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { sender, type } = req.body;
+
+    const doc = new Verification({
+      sender: sender,
+      type: type,
+      requestId: id,
+      comment: "",
+    });
+
+    await doc.save();
+
+    return res.json(doc);
   } catch (err) {
     console.log(err);
     return res.status(500).json({
