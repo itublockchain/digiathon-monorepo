@@ -4,6 +4,13 @@ export type User = {
   type: 'signer' | 'user';
 };
 
+export type UserById = {
+  passwordHash: string;
+  fullname: string;
+  account: string;
+  type: 'signer' | 'user';
+}
+
 export type SignRequestInput = {
   sender: string;
   title: string;
