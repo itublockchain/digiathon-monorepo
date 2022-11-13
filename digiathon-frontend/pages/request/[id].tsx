@@ -1,19 +1,31 @@
 import { Container, Layout } from '@ethylene/components';
-import { useAddress, useIsConnected } from '@ethylene/hooks';
+import {
+  useAddress,
+  useContractFunction,
+  useIsConnected,
+} from '@ethylene/hooks';
 import { useRequest } from '@ethylene/hooks/useApiRequest';
 import { useModal } from '@ethylene/ui-hooks';
 import { clsnm } from '@ethylene/utils';
 import { Navbar } from 'components';
+import { ABI } from 'const/abi';
+import { BELGE } from 'const/address';
+import { ethers } from 'ethers';
 import { useNotify } from 'hooks/useNotify';
 import { useQueryParams } from 'hooks/useQueryParams';
 import { useEffect, useRef, useState } from 'react';
-import { SignRequest } from 'types/app';
-import { Button, Modal } from 'ui';
+import { SignRequest, SubmitDocumentInput } from 'types/app';
+import { Button, Modal, Spinner } from 'ui';
 import { fileToBase64 } from 'utils/fileToBase64';
 import { useAxios } from 'utils/requestService';
 
+const hashValue = (val: string): string => {
+  return ethers.utils.keccak256(ethers.utils.toUtf8Bytes(val));
+};
+
 const Request = () => {
-  const { apiGetSignRequestById } = useAxios();
+  const { apiGetSignRequestById, apiSubmitDocument, apiSubmitDocumentForSign } =
+    useAxios();
   const isConnected = useIsConnected();
   const { id } = useQueryParams<{ id: string }>();
   const [request, setRequest] = useState<SignRequest | null>(null);
@@ -21,17 +33,67 @@ const Request = () => {
   const notify = useNotify();
   const address = useAddress();
   const inputRef = useRef<HTMLInputElement>(null);
-
-  const sign = () => {};
+  const [file, setFile] = useState<File | null>(null);
+  const [b64, setB64] = useState<string | null>(null);
+  const modal = useModal();
 
   const getSignRequestReq = useRequest(
     (id: string) => apiGetSignRequestById(id),
     {
       onSuccess: (res) => {
         setRequest(res.data);
+        if (res.data.document != null) {
+          setB64(res.data.document.data);
+          setSignature(res.data.document.hash);
+        }
       },
     },
   );
+
+  const submitReq = useRequest(
+    (id: string, data: SubmitDocumentInput) => apiSubmitDocument(id, data),
+    {
+      onSuccess: (res) => {
+        setRequest(res.data);
+        notify.success('Belgeyi başarıyla imzaladınız!');
+        if (id != null) {
+          getSignRequestReq.exec(id);
+        }
+      },
+    },
+  );
+
+  const submitForSignReq = useRequest(
+    (id: string) => apiSubmitDocumentForSign(id),
+    {
+      onSuccess: () => {
+        if (id == null) return;
+        getSignRequestReq.exec(id);
+      },
+    },
+  );
+
+  const sendApproveTxn = useContractFunction({
+    abi: ABI,
+    address: BELGE,
+    method: 'bireyselBelgeOlustur',
+    onSuccess: () => {
+      if (b64 == null || request == null) {
+        return;
+      }
+      submitReq.exec(request._id, {
+        data: b64,
+        hash: hashValue(b64),
+      });
+    },
+  });
+
+  const sign = async () => {
+    if (b64 != null) {
+      const hashVal = hashValue(b64);
+      sendApproveTxn.write(hashVal);
+    }
+  };
 
   const formatPageName = (requestId: string) => {
     return `İstek - ${requestId}`;
@@ -42,10 +104,6 @@ const Request = () => {
 
     getSignRequestReq.exec(id);
   }, [isConnected, id]);
-
-  const [file, setFile] = useState<File | null>(null);
-  const [b64, setB64] = useState<string | null>(null);
-  const modal = useModal();
 
   useEffect(() => {
     const convert = async () => {
@@ -81,12 +139,17 @@ const Request = () => {
             <div className="col-span-1"></div>
             <div className="col-span-10">
               {getSignRequestReq.loading || request == null ? (
-                <div></div>
+                <div
+                  className="flex items-center justify-center"
+                  style={{ minHeight: '50vh' }}
+                >
+                  <Spinner />
+                </div>
               ) : (
                 <>
                   <div className="flex justify-between items-center">
                     <span className="text-lg font-semibold">
-                      {formatPageName(request._id)}
+                      {formatPageName(request?._id)}
                     </span>
                   </div>
                   <div className="flex flex-col w-full bg-white shadow-md mt-10 rounded-md">
@@ -122,6 +185,11 @@ const Request = () => {
                           Önizleme
                         </span>
                       )}
+                      {signature != null && (
+                        <span className="mt-2 text-xs block cursor-pointer">
+                          Belge başarıyla imzalandı gönderime hazır durumda
+                        </span>
+                      )}
                     </div>
                   </div>
                   <div
@@ -134,7 +202,13 @@ const Request = () => {
                       <span>Adım 2: Belgenizi imzalayın</span>
                     </div>
                     <div className="bg-white h-max rounded-b-md p-6">
-                      <Button color="success">Birey olarak imzala</Button>
+                      <Button
+                        loading={sendApproveTxn.isLoading || submitReq.loading}
+                        onClick={sign}
+                        color="success"
+                      >
+                        Birey olarak imzala
+                      </Button>
                       <span className="mt-4 block">
                         Bu işlemi tamamlamak için Metamask ve benzeri bir cüzdan
                         kullanabiliriniz. Onayla tuşuna bastığınızdan sonra size
@@ -145,11 +219,15 @@ const Request = () => {
                   </div>
 
                   <Button
-                    disabled={signature == null}
+                    onClick={() => submitForSignReq.exec()}
+                    disabled={signature == null || request.submitted}
+                    loading={submitForSignReq.loading}
                     color="primary"
                     className="ml-auto mt-4"
                   >
-                    İmza için gönder
+                    {request.submitted
+                      ? 'İmza için gönderildi'
+                      : 'İmza için gönder'}
                   </Button>
                 </>
               )}

@@ -1,7 +1,8 @@
 export const PATHS = {
+  approve: '/approve',
   home: '/dashboard',
   intro: '/',
   login: '/login',
-  noter: '/noter',
+  noter: '/anasayfa',
   request: '/request',
 };

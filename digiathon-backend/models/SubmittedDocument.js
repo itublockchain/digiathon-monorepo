@@ -1,13 +1,13 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const VerificationSchema = new Schema({
-  sender: {
+const SubmittedDocumentSchema = new Schema({
+  data: {
     type: String,
     required: true,
   },
-  type: {
-    type: String, // "accepted" | "rejected"
+  hash: {
+    type: String,
     required: true,
   },
   created: {
@@ -15,17 +15,13 @@ const VerificationSchema = new Schema({
     required: true,
     default: Math.floor(new Date().getTime() / 1000),
   },
-  comment: {
-    type: String,
-    required: true,
-  },
-  request: {
+  requestId: {
     type: mongoose.Types.ObjectId,
     ref: "SignRequest",
   },
 });
 
-module.exports = Verification = mongoose.model(
-  "Verification",
-  VerificationSchema
+module.exports = SubmittedDocument = mongoose.model(
+  "SubmittedDocument",
+  SubmittedDocumentSchema
 );

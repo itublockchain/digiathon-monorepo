@@ -13,7 +13,12 @@ export const users: { [key: string]: User } = {
   },
   '0x9B8990Fd2cE1F6633499953B3B27a0E15Ff3eb9b': {
     fullname: 'Muhittin Köybaşı',
-    tcId: "1112",
-    type: "user",
+    tcId: '1112',
+    type: 'user',
+  },
+  '0xA63A810228a180767d3502EF8d21DbF4Da0D6b43': {
+    fullname: 'Asgarov 2',
+    tcId: '4444',
+    type: 'signer',
   },
 };

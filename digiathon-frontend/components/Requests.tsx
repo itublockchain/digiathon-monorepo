@@ -88,7 +88,7 @@ export const Requests = ({
         </div>
       )}
       {requests.length === 0 && !getSignRequestsReq.loading ? (
-        <div className="mt-2 flex justify-center">
+        <div className="mt-2 flex justify-center" style={{ marginTop: '2rem' }}>
           <span>Talebiniz bulunmamaktadır</span>
         </div>
       ) : (

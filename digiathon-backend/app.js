@@ -7,7 +7,7 @@ const connectDB = require("./utils/connectDB");
 const requestsRouter = require("./routes/requests");
 
 app.use(cors({ origin: "*" }));
-app.use(express.json());
+app.use(express.json({ limit: "10mb" }));
 
 app.use("/requests", requestsRouter);
 
